@@ -1,0 +1,11 @@
+[server]
+port = 8501
+enableCORS = false
+headless = true
+
+[theme]
+primaryColor = "#4CAF50"   # Green color for DocInsight theme
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F5F5F5"
+textColor = "#000000"
+font = "sans serif"
