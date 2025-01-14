@@ -34,7 +34,7 @@ def register_user(username, password):
         print(f"Register API Error: {e}")
         return None
 
-def fetch_summarization(document, summary_length=0.5):
+def summarize_document(document, summary_length=0.5):
     """
     Send a document for summarization.
     """
@@ -75,3 +75,35 @@ def update_preferences(user_id, preferences):
     except requests.exceptions.RequestException as e:
         print(f"Update Preferences API Error: {e}")
         return False
+
+def query_chatbot(prompt):
+    """
+    Send a prompt to the chatbot API and get the response.
+    """
+    try:
+        response = requests.post(
+            f"{BASE_URL}/chatbot/query",
+            json={"prompt": prompt},
+        )
+        if response.status_code == 200:
+            return response.json()  # Chatbot response
+        return None
+    except requests.exceptions.RequestException as e:
+        print(f"Chatbot API Error: {e}")
+        return None
+
+def voice_command(command):
+    """
+    Send a voice command to the backend API and get the response.
+    """
+    try:
+        response = requests.post(
+            f"{BASE_URL}/voice/command",
+            json={"command": command},
+        )
+        if response.status_code == 200:
+            return response.json()  # Backend response
+        return None
+    except requests.exceptions.RequestException as e:
+        print(f"Voice Command API Error: {e}")
+        return None

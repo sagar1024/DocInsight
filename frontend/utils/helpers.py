@@ -1,4 +1,5 @@
 import streamlit as st
+from playsound import playsound
 
 def set_user_session(user):
     """
@@ -44,3 +45,12 @@ def format_summary(summary_data):
     for idx, point in enumerate(key_points, start=1):
         formatted += f"{idx}. {point}\n"
     return formatted
+
+def play_audio(file_path):
+    """
+    Play an audio file from the given file path.
+    """
+    try:
+        playsound(file_path)
+    except Exception as e:
+        print(f"Error playing audio: {e}")
