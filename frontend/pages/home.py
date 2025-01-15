@@ -3,7 +3,7 @@ import streamlit as st
 def render():
     """Render the Home Page."""
     st.title("Welcome to DocInsight")
-    st.image("assets/logo.png", use_column_width=True)
+    #st.image("assets/logo.png", use_column_width=True)
     
     st.markdown(
         """
