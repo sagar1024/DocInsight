@@ -8,7 +8,7 @@
 
 1. Document Summarization - Summarize documents with AI-driven accuracy.
 
-2. Interactive Chatbot - Ask queries about your documents using a conversational chatbot powered by the Gemini API.
+2. Interactive Chatbot - Ask queries about your documents using a conversational chatbot.
 
 3. Voice Assistant - Listen to document summaries and navigate the application using voice commands.
 
