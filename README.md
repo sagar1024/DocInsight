@@ -10,6 +10,6 @@
 
 2. Interactive Chatbot - Ask queries about your documents using a conversational chatbot.
 
-3. Voice Assistant - Listen to document summaries and navigate the application using voice commands.
+3. Voice Assistant - Listen to document summaries and navigate using voice commands.
 
 4. Customizations - Tailor summaries by adjusting their length, focusing on specific sections, or generating content in different languages.
