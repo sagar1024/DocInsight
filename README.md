@@ -6,10 +6,10 @@
 
 #### Features
 
-1. **Document Summarization** - Summarize PDFs, Word documents, Excel files, and PowerPoint presentations with AI-driven accuracy.
+1. Document Summarization - Summarize documents with AI-driven accuracy.
 
-2. **Interactive Chatbot** - Ask queries about your documents using a conversational chatbot powered by the Gemini API.
+2. Interactive Chatbot - Ask queries about your documents using a conversational chatbot powered by the Gemini API.
 
-3. **Voice Assistant** - Listen to document summaries and navigate the application using voice commands.
+3. Voice Assistant - Listen to document summaries and navigate the application using voice commands.
 
-4. **Customizations** - Tailor summaries by adjusting their length, focusing on specific sections, or generating content in different languages.
+4. Customizations - Tailor summaries by adjusting their length, focusing on specific sections, or generating content in different languages.
