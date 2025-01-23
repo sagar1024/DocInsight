@@ -2,7 +2,7 @@ from fastapi import APIRouter, UploadFile, File, HTTPException, Form, Query
 from typing import Optional
 from tempfile import NamedTemporaryFile
 
-from ..services import summarizer
+from ..services import summarization
 
 router = APIRouter(prefix="/summarize", tags=["Summarization"])
 
@@ -29,10 +29,10 @@ async def summarize_document(
             temp_file_path = temp_file.name
         
         # Extract text from file
-        text = summarizer.extract_text_from_file(temp_file_path)
+        text = summarization.extract_text_from_file(temp_file_path)
         
         # Summarize the extracted text
-        summary = summarizer.summarize_text(text, max_length=max_length, min_length=min_length, language=language)
+        summary = summarization.summarize_text(text, max_length=max_length, min_length=min_length, language=language)
         return {"summary": summary}
     
     except Exception as e:

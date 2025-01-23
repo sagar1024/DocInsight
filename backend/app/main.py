@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import auth, summarize
+from .routes import auth, summarization
 from .database import engine, Base
 
 # Initialize the database
@@ -30,7 +30,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(auth.router)
-app.include_router(summarize.router)
+app.include_router(summarization.router)
 
 @app.get("/")
 def root():
