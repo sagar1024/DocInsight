@@ -5,7 +5,6 @@ from modules import home, summarization, chatbot, voice_assistant, preferences
 # Configure Streamlit page settings
 st.set_page_config(
     page_title="DocInsight - AI Document Summarizer",
-    #page_icon="assets/logo.png",
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
@@ -37,3 +36,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
+    
