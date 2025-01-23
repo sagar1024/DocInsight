@@ -37,6 +37,7 @@ def render():
     # Display Saved Preferences
     st.subheader("Your Current Preferences")
     preferences = st.session_state.get("preferences", None)
+    
     if preferences:
         st.json(preferences)
     else:

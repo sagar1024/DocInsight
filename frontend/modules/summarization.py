@@ -1,6 +1,5 @@
 import streamlit as st
 from utils.api_client import summarize_document
-#from utils.api_client import fetch_summarization
 
 def render():
     """Render the Summarization Page."""

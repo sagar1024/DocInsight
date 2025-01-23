@@ -38,4 +38,4 @@ def render():
             st.write(f"**Command Result**: {command_result}")
         else:
             st.error("Failed to process voice command. Try again.")
-
+            

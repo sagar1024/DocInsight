@@ -20,7 +20,6 @@ def render():
         if user_query.strip():
             # Call backend API
             response = query_chatbot(user_query)
-
             if response:
                 # Append to chat history
                 chat_history.append({"user": user_query, "bot": response})
@@ -40,4 +39,4 @@ def render():
     if st.button("Clear Chat"):
         st.session_state["chat_history"] = []
         st.success("Chat history cleared.")
-
+        
