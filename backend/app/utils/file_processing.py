@@ -1,6 +1,10 @@
 import os
+import io
 import tempfile
 from typing import Tuple
+import fitz  # PyMuPDF
+import pytesseract
+from PIL import Image
 
 def save_uploaded_file(file, upload_dir: str) -> str:
     """
@@ -56,3 +60,20 @@ def delete_temp_file(file_path: str) -> None:
             os.remove(file_path)
     except Exception as e:
         raise ValueError(f"Failed to delete temporary file: {str(e)}")
+
+def extract_text_and_images(file_stream):
+    doc = fitz.open(stream=file_stream, filetype="pdf")
+    combined_text = ""
+    images = []
+
+    for page in doc:
+        combined_text += page.get_text()
+        for img in page.get_images(full=True):
+            xref = img[0]
+            base_image = doc.extract_image(xref)
+            image_bytes = base_image["image"]
+            images.append(image_bytes)
+            text_from_image = pytesseract.image_to_string(Image.open(io.BytesIO(image_bytes)))
+            combined_text += "\n" + text_from_image
+
+    return combined_text, images

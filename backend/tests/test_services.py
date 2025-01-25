@@ -27,4 +27,10 @@ def test_generate_summary():
     summary = generate_summary(text, length="short")
     assert len(summary) > 0
     assert "document summarization" in summary
-    
+
+def test_process_document_with_images():
+    file = open("test_data/sample_with_images.pdf", "rb")
+    result = process_document(file)
+    assert "Summary" in result
+    assert result["images"] > 0
+

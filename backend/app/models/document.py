@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Text, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, Text, DateTime, LargeBinary
+from app.database import Base
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -23,3 +24,10 @@ class Document(Base):
     
     def __repr__(self):
         return f"<Document(filename={self.filename}, upload_time={self.upload_time})>"
+
+class ImageData(Base):
+    __tablename__ = "images"
+    id = Column(Integer, primary_key=True, index=True)
+    document_id = Column(Integer, ForeignKey("documents.id"))
+    image = Column(LargeBinary, nullable=False)
+    ocr_text = Column(String, nullable=True)

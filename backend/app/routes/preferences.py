@@ -27,3 +27,4 @@ async def update_preferences(preferences: dict, user: User = Depends(get_current
         return {"message": "Preferences updated successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error saving preferences: {str(e)}")
+
