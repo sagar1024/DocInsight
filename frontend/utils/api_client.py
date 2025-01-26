@@ -107,3 +107,62 @@ def voice_command(command):
     except requests.exceptions.RequestException as e:
         print(f"Voice Command API Error: {e}")
         return None
+
+#ALTERNATE -
+
+# import requests
+
+# BASE_URL = "http://localhost:8000"  # Replace with your backend's base URL
+
+# def call_summarization_api(document_file, customization_options):
+#     """Calls the summarization API with the provided document and options."""
+#     url = f"{BASE_URL}/api/summarization"
+#     files = {"file": document_file}
+#     data = customization_options
+
+#     try:
+#         response = requests.post(url, files=files, data=data)
+#         response.raise_for_status()
+#         return response.json()  # Parsed JSON response
+#     except requests.RequestException as e:
+#         print(f"Error calling summarization API: {e}")
+#         return {"error": str(e)}
+
+# def call_chatbot_api(query, document_id):
+#     """Sends a query to the chatbot API."""
+#     url = f"{BASE_URL}/api/chatbot"
+#     payload = {"query": query, "document_id": document_id}
+
+#     try:
+#         response = requests.post(url, json=payload)
+#         response.raise_for_status()
+#         return response.json()
+#     except requests.RequestException as e:
+#         print(f"Error calling chatbot API: {e}")
+#         return {"error": str(e)}
+
+# def authenticate_user(email, password):
+#     """Sends login credentials to the backend authentication API."""
+#     url = f"{BASE_URL}/api/auth/login"
+#     payload = {"email": email, "password": password}
+
+#     try:
+#         response = requests.post(url, json=payload)
+#         response.raise_for_status()
+#         return response.json()
+#     except requests.RequestException as e:
+#         print(f"Error authenticating user: {e}")
+#         return {"error": str(e)}
+
+# def register_user(email, password, name):
+#     """Registers a new user via the backend registration API."""
+#     url = f"{BASE_URL}/api/auth/signup"
+#     payload = {"email": email, "password": password, "name": name}
+
+#     try:
+#         response = requests.post(url, json=payload)
+#         response.raise_for_status()
+#         return response.json()
+#     except requests.RequestException as e:
+#         print(f"Error registering user: {e}")
+#         return {"error": str(e)}
