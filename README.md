@@ -1,6 +1,6 @@
 ## DocInsight: AI-Powered Document Summarization and Interaction Tool
 
-**DocInsight** is an AI-driven web application designed to revolutionize how users analyze and comprehend complex documents. It offers features such as document summarization, interactive chatbot queries, voice-based interactions, and customization options to make document analysis more accessible and efficient.
+**DocInsight** is an AI-driven web application designed to revolutionize how users analyze and comprehend complex documents. It offers features such as document summarization, interactive chatbot queries, voice-based interactions, and customization options to make document analysis more accessible.
 
 ---
 
@@ -13,3 +13,4 @@
 3. Voice Assistant - Listen to document summaries and navigate using voice commands.
 
 4. Customizations - Adjust summary length, focusing on specific sections.
+
