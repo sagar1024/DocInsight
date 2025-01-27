@@ -18,14 +18,30 @@ def login_user(username, password):
         print(f"Login API Error: {e}")
         return None
 
-def register_user(username, password):
+# def register_user(username, password):
+#     """
+#     Register a new user with the backend API.
+#     """
+#     try:
+#         response = requests.post(
+#             f"{BASE_URL}/auth/register",
+#             json={"username": username, "password": password},
+#         )
+#         if response.status_code == 201:
+#             return response.json()  # Registration successful
+#         return None
+#     except requests.exceptions.RequestException as e:
+#         print(f"Register API Error: {e}")
+#         return None
+
+def register_user(username, password, name):
     """
     Register a new user with the backend API.
     """
     try:
         response = requests.post(
             f"{BASE_URL}/auth/register",
-            json={"username": username, "password": password},
+            json={"username": username, "password": password, "name": name},
         )
         if response.status_code == 201:
             return response.json()  # Registration successful
