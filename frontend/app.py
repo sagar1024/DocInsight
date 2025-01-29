@@ -129,7 +129,6 @@ PAGES = {
     "Preferences": preferences,
 }
 
-
 def render_auth_page():
     """Renders the authentication page for login or signup."""
     st.title("Welcome to DocInsight!")
@@ -154,7 +153,6 @@ def render_auth_page():
             else:
                 show_message("Registration failed. Please try again.", "error")
 
-
 def main():
     # Check if the user is authenticated
     if "authenticated" not in st.session_state or not st.session_state["authenticated"]:
@@ -174,6 +172,6 @@ def main():
     # Render the footer
     render_footer()
 
-
 if __name__ == "__main__":
     main()
+    
