@@ -24,6 +24,5 @@ def render_navbar():
             st.session_state["show_auth_forms"] = True
 
     st.sidebar.markdown("---")
-    #st.sidebar.image("assets/logo.png", use_column_width=True)
 
     return menu
