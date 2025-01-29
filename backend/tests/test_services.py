@@ -33,4 +33,3 @@ def test_process_document_with_images():
     result = process_document(file)
     assert "Summary" in result
     assert result["images"] > 0
-
