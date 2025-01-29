@@ -100,42 +100,6 @@
 
 #ALTERNATE -
 
-# import streamlit as st
-# from components.navbar import render_navbar
-# from components.footer import render_footer
-# from modules import home, summarization, chatbot, voice_assistant, preferences
-
-# st.set_page_config(
-#     page_title="DocInsight - AI Document Summarizer",
-#     layout="wide",
-#     initial_sidebar_state="expanded",
-# )
-
-# # Available pages
-# PAGES = {
-#     "Home": home,
-#     "Summarization": summarization,
-#     "Chatbot": chatbot,
-#     "Voice Assistant": voice_assistant,
-#     "Preferences": preferences,
-# }
-
-# def main():
-#     # Render navigation bar
-#     selection = render_navbar()
-
-#     # Render selected page
-#     page = PAGES[selection]
-#     page.render()
-
-#     # Render footer
-#     render_footer()
-
-# if __name__ == "__main__":
-#     main()
-
-#ALTERNATE -
-
 import streamlit as st
 from components.navbar import render_navbar
 from components.footer import render_footer
@@ -213,5 +177,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
-    
