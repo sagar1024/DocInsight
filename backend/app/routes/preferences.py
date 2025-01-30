@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from app.services.preferences import save_preferences, get_preferences
-from app.models.user import User  # Assuming a User model exists
+from app.models.users import User  #User model exists
 from app.utils.auth import get_current_user  # Dependency for user authentication
 
 router = APIRouter()

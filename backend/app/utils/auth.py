@@ -38,4 +38,3 @@ def decode_access_token(token: str):
         return user_id
     except JWTError:
         return None
-

@@ -15,7 +15,6 @@ async def narrate_text(text: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error generating narration: {str(e)}")
 
-
 @router.post("/voice/command")
 async def handle_voice_command(command: str):
     """
