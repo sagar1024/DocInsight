@@ -1,4 +1,5 @@
 import streamlit as st
+import re
 from playsound import playsound
 
 def set_user_session(user):
@@ -55,10 +56,7 @@ def play_audio(file_path):
     except Exception as e:
         print(f"Error playing audio: {e}")
 
-
 #NEW CODE -
-
-import re
 
 def validate_email(email):
     """Validates an email address format."""
