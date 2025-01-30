@@ -14,4 +14,3 @@ async def chat_with_bot(query: str):
         return {"response": response}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing chatbot query: {str(e)}")
-

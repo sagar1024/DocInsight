@@ -1,24 +1,22 @@
-from app.utils.external_api import gemini_chatbot_api
+from app.integrations.gemini_api import generate_chatbot_reply
 
-# async def handle_chat_query(query: str, document_context: str = "") -> str:
-#     """
-#     Process a query using the Gemini API and return the response.
-    
-#     Args:
-#         query (str): The user's query.
-#         document_context (str): Additional document context to refine the chatbot response.
-    
-#     Returns:
-#         str: The chatbot's response.
-#     """
-#     try:
-#         response = gemini_chatbot_api(query, context=document_context)
-#         return response
-#     except Exception as e:
-#         raise ValueError(f"Failed to process chatbot query: {str(e)}")
+def get_chatbot_response(query: str, document_text: str = "") -> str:
+    """
+    Processes the user query with optional document context and returns a chatbot response.
 
-async def query_chatbot(query, document_text):
-    # Combine the user's query with document context
-    prompt = f"Document Context: {document_text[:2000]}\n\nUser Query: {query}"
-    response = await call_gemini_api(prompt)
-    return response
+    Args:
+        query (str): The user's input query.
+        document_text (str, optional): Context extracted from a document to improve response quality.
+
+    Returns:
+        str: The chatbot's response.
+    """
+    try:
+        # Combine the query with document context if provided
+        prompt = f"Document Context: {document_text[:2000]}\n\nUser Query: {query}" if document_text else query
+        
+        # Call the Gemini API to get a response
+        response = generate_chatbot_reply(prompt)
+        return response
+    except Exception as e:
+        return f"Error generating chatbot response: {str(e)}"
