@@ -6,7 +6,7 @@ from app.config import settings
 
 # Database URL from config
 #DATABASE_URL = settings.DATABASE_URL
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:sagar@localhost/dbname")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost/dbname")
 
 # SQLAlchemy setup
 

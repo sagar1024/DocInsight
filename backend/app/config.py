@@ -3,10 +3,10 @@ from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     # Database Configuration
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://user:sagar@localhost/docinsight_db")
+    DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://user:password@localhost/docinsight_db")
 
     # Gemini API Key
-    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "AIzaSyC6P9NKEWJIA_O2nqsMR8swyTaqzghRZj8")
+    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "your_gemini_api_key")
 
     # Voice API Key (if any)
     VOICE_API_KEY: str = os.getenv("VOICE_API_KEY", "your_voice_api_key")
