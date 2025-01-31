@@ -1,12 +1,12 @@
 import pytest
-from app.services.summarization import summarize_document
+from app.services.summarization import process_document
 from app.services.chatbot import get_chatbot_response
-from app.services.voice import convert_text_to_speech
+from app.services.voice import text_to_speech
 from app.utils.nlp_utils import generate_summary
 
 def test_summarize_document():
     text = "DocInsight is an AI-powered application designed to summarize and analyze documents."
-    summary = summarize_document(text, "short")
+    summary = process_document(text, "short")
     assert len(summary) > 0
     assert "DocInsight" in summary
 
@@ -18,7 +18,7 @@ def test_chatbot_response():
 
 def test_text_to_speech():
     text = "This is a test for text-to-speech conversion."
-    audio_data = convert_text_to_speech(text)
+    audio_data = text_to_speech(text)
     assert audio_data is not None
     assert isinstance(audio_data, bytes)
 
