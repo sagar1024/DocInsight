@@ -1,44 +1,3 @@
-# import streamlit as st
-# from components.navbar import render_navbar
-# from modules import home, summarization, chatbot, voice_assistant, preferences
-
-# # Configure Streamlit page settings
-# st.set_page_config(
-#     page_title="DocInsight - AI Document Summarizer",
-#     layout="wide",
-#     initial_sidebar_state="expanded",
-#     menu_items={
-#         "Get Help": None,
-#         "Report a bug": None,
-#         "About": None,
-#     }
-# )
-
-# # Define available pages
-# PAGES = {
-#     "Home": home,
-#     "Summarization": summarization,
-#     "Chatbot": chatbot,
-#     "Voice Assistant": voice_assistant,
-#     "Preferences": preferences,
-# }
-
-# def main():
-#     st.sidebar.title("DocInsight")
-#     st.sidebar.markdown("Revolutionizing Document Analysis")
-    
-#     # Render the navigation bar and get the selected menu
-#     selection = render_navbar()
-
-#     # Render the selected page
-#     page = PAGES[selection]
-#     page.render()
-
-# if __name__ == "__main__":
-#     main()
-
-#ALTERNATE -
-
 import streamlit as st
 from components.navbar import render_navbar
 from components.footer import render_footer
@@ -58,6 +17,23 @@ st.set_page_config(
         "About": "DocInsight: Revolutionizing Document Analysis",
     }
 )
+
+# Light/Dark mode state
+if "dark_mode" not in st.session_state:
+    st.session_state["dark_mode"] = False
+
+# Apply Light/Dark mode styling
+if st.session_state["dark_mode"]:
+    st.markdown(
+        """
+        <style>
+            body { background-color: #121212; color: white; }
+            .stApp { background-color: #121212; color: white; }
+            .navbar-container { background-color: #333 !important; color: white !important; }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Define available pages
 PAGES = {
@@ -93,12 +69,12 @@ def render_auth_page():
                 show_message("Registration failed. Please try again.", "error")
 
 def main():
-    # Check if the user is authenticated
+    # User authentication
     # if "authenticated" not in st.session_state or not st.session_state["authenticated"]:
     #     render_auth_page()
     #     return
 
-    # Render the navigation bar and get the selected menu
+    # Render the navigation bar
     selection = render_navbar()
 
     # Render the selected page
@@ -113,5 +89,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
     
