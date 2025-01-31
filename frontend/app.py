@@ -68,7 +68,16 @@ def render_auth_page():
             else:
                 show_message("Registration failed. Please try again.", "error")
 
+#Styling for the whole app -
+def load_custom_css():
+    """Inject custom CSS for dark reddish theme."""
+    with open("styles.css", "r") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 def main():
+    # Load CSS at the start
+    load_custom_css()
+    
     # User authentication
     # if "authenticated" not in st.session_state or not st.session_state["authenticated"]:
     #     render_auth_page()

@@ -4,8 +4,8 @@ enableCORS = false
 headless = true
 
 [theme]
-primaryColor = "#4CAF50"   # Green color for DocInsight theme
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F5F5F5"
-textColor = "#000000"
+primaryColor = "#333333"  # Dark Gray for primary theme
+backgroundColor = "#121212"  # Dark background
+secondaryBackgroundColor = "#1f1f1f"  # Slightly lighter dark gray
+textColor = "#ffffff"  # White text for contrast
 font = "sans serif"

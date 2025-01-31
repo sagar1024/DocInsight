@@ -1,0 +1,42 @@
+/* General Background and Text */
+body, .stApp {
+    background-color: #121212 !important;
+    /* Dark Gray Background */
+    color: #ffffff !important;
+    /* White Text */
+}
+
+/* Sidebar Styling */
+.stSidebar {
+    background-color: #1f1f1f !important;
+    /* Darker Gray for Sidebar */
+    color: #ffffff !important;
+}
+
+/* Navbar Styling */
+.navbar-container {
+    background-color: #2e2e2e !important;
+    /* Dark Gray Navbar */
+    color: white !important;
+}
+
+/* Buttons */
+button {
+    background-color: #333333 !important;
+    /* Dark Gray */
+    color: white !important;
+    border-radius: 5px;
+}
+
+/* Input Fields */
+input,
+textarea {
+    background-color: #2c2c2c !important;
+    color: white !important;
+}
+
+/* Radio Buttons and Checkboxes */
+.stRadio,
+.stCheckbox {
+    color: white !important;
+}
