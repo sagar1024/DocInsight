@@ -1,6 +1,7 @@
 import requests
 
-BASE_URL = "http://localhost:8000/api"  # Replace with your backend's URL if hosted remotely.
+#BASE_URL = "http://localhost:8000/api"  # Replace with your backend's URL if hosted remotely.
+BASE_URL = "http://127.0.0.1:8000"  # Replace with your backend's URL if hosted remotely.
 
 def login_user(username, password):
     """
@@ -34,17 +35,41 @@ def register_user(username, password, name):
         print(f"Register API Error: {e}")
         return None
 
-def summarize_document(document, summary_length=0.5):
+# def summarize_document(document, summary_length=0.5):
+#     """
+#     Send a document for summarization.
+#     """
+#     try:
+#         files = {"file": document}
+#         data = {"summary_length": summary_length}
+#         response = requests.post(f"{BASE_URL}/summarize", files=files, data=data)
+#         if response.status_code == 200:
+#             return response.json()  # Summary result
+#         return None
+#     except requests.exceptions.RequestException as e:
+#         print(f"Summarization API Error: {e}")
+#         return None
+
+def summarize_document(document, summary_length=0.5, focus_sections="", language="English"):
     """
-    Send a document for summarization.
+    Send a document for summarization to the backend API.
     """
     try:
-        files = {"file": document}
-        data = {"summary_length": summary_length}
+        # Prepare the data
+        files = {"file": document}  # 'file' is the key for the uploaded file
+        data = {
+            "summary_length": summary_length,
+            "focus_sections": focus_sections,
+            "language": language,
+        }
+
+        # Make the API request to the backend
         response = requests.post(f"{BASE_URL}/summarize", files=files, data=data)
+        
         if response.status_code == 200:
-            return response.json()  # Summary result
-        return None
+            return response.json()  # Returns the summary data (e.g., {"summary": "generated summary"})
+        else:
+            return None
     except requests.exceptions.RequestException as e:
         print(f"Summarization API Error: {e}")
         return None

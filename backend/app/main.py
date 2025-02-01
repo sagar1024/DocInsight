@@ -18,7 +18,8 @@ def health_check():
     return {"message": "Welcome to DocInsight"}
 
 # Include routers
-app.include_router(summarization.router, prefix="/summarize", tags=["Summarization"])
+#app.include_router(summarization.router, prefix="/summarize", tags=["Summarization"])
+app.include_router(summarization.router)
 app.include_router(chatbot.router, prefix="/chatbot", tags=["Chatbot"])
 app.include_router(voice.router, prefix="/voice", tags=["Voice"])
 app.include_router(preferences.router, prefix="/preferences", tags=["Preferences"])

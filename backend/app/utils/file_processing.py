@@ -2,6 +2,9 @@ import os
 import io
 import tempfile
 from typing import Tuple
+
+from PyPDF2 import PdfReader
+
 import fitz  # PyMuPDF
 import pytesseract
 from PIL import Image
@@ -39,7 +42,6 @@ def extract_text_from_file(file_path: str) -> str:
     try:
         # Example for PDF extraction, extend this for other formats.
         if file_path.endswith(".pdf"):
-            from PyPDF2 import PdfReader
             reader = PdfReader(file_path)
             text = "".join([page.extract_text() for page in reader.pages])
             return text
