@@ -1,8 +1,11 @@
 import requests
 import os
 
+# Correct Gemini API URL
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-GEMINI_API_URL = "https://api.gemini.com/v1/chat"
+
+#GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
+GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}"
 
 async def call_gemini_api(prompt: str) -> str:
     """
@@ -14,13 +17,22 @@ async def call_gemini_api(prompt: str) -> str:
     Returns:
         str: The chatbot's response.
     """
-    headers = {"Authorization": f"Bearer {GEMINI_API_KEY}"}
-    payload = {"query": prompt}
-
+    headers = {"Content-Type": "application/json"}
+    payload = {
+        "contents": [
+            {"parts": [{"text": prompt}]}
+        ]
+    }
+    
     try:
-        response = requests.post(GEMINI_API_URL, json=payload, headers=headers)
+        response = requests.post(f"{GEMINI_API_URL}?key={GEMINI_API_KEY}", json=payload, headers=headers)
         response.raise_for_status()  # Raise error for non-200 responses
         data = response.json()
-        return data.get("response", "No response from Gemini API")
+        
+        # Extract response text
+        response_text = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "No response from Gemini API")
+        return response_text
+
     except Exception as e:
         return f"Error calling Gemini API: {str(e)}"
+    

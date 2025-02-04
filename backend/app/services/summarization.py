@@ -1,42 +1,13 @@
-# import fitz  # PyMuPDF
-# from PIL import Image
-# import pytesseract
-# import spacy
-# import io
-# from transformers import pipeline
-# from app.utils.file_processing import extract_text_and_images
-
-# # Load NLP models
-# # nlp = spacy.load("en_core_web_sm")  # For basic text processing
-# summarizer = pipeline("summarization", model="facebook/bart-large-cnn")  # Pretrained summarization model
-
-# async def process_document(file):
-#     combined_text, images = extract_text_and_images(file)
-#     summary = generate_summary(combined_text)
-#     return {"summary": summary, "images": len(images)}
-
-# def generate_summary(text):
-#     """
-#     Generates a summary from extracted text using NLP techniques.
-#     """
-#     # Preprocess text: Remove unnecessary whitespace and limit input size
-#     doc = " ".join(text.split())[:4000]  # Truncate text to 4000 characters for efficiency
-    
-#     if len(doc) < 200:
-#         return doc  # If text is too short, return as is
-
-#     # Use Transformer-based summarization
-#     summary = summarizer(doc, max_length=500, min_length=100, do_sample=False)
-#     return summary[0]["summary_text"]
-
-#ALTERNATE -
-
-from transformers import pipeline
+import fitz  #PyMuPDF for PDF processing
 import io
-import fitz  # PyMuPDF for PDF processing
 import pytesseract
 from PIL import Image
 from fastapi import UploadFile
+
+#from transformers import pipeline
+
+#from utils import external_api
+from app.utils.external_api import call_gemini_api
 
 async def process_document(file: io.BytesIO):
     """
@@ -70,22 +41,21 @@ async def process_document(file: io.BytesIO):
         "images": image_count
     }
 
+#summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 # def summarize_text(text: str) -> str:
 #     """
-#     Simple summarization: Return first 3 sentences.
-#     You can replace this with an advanced model (e.g., Hugging Face, Gemini API).
+#     Uses a pre-trained BART summarization model to generate a better summary.
 #     """
-#     sentences = text.split(". ")
-#     return ". ".join(sentences[:3]) + "..." if len(sentences) > 3 else text
+#     if len(text) < 100:
+#         return text  # If the text is short, return it as is
 
-summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+#     summary = summarizer(text, max_length=150, min_length=50, do_sample=False)
+#     return summary[0]["summary_text"]
 
-def summarize_text(text: str) -> str:
+async def summarize_text(text: str) -> str:
     """
-    Uses a pre-trained BART summarization model to generate a better summary.
+    Uses the Gemini API to analyze the document text and generate a summary.
     """
-    if len(text) < 100:
-        return text  # If the text is short, return it as is
-
-    summary = summarizer(text, max_length=150, min_length=50, do_sample=False)
-    return summary[0]["summary_text"]
+    prompt = f"Summarize the following document:\n\n{text[:5000]}"  # Limit to 5000 characters
+    response = await call_gemini_api(prompt)
+    return response
