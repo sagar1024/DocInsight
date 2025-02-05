@@ -1,8 +1,15 @@
 import requests
 import os
 
-# Correct Gemini API URL
+from dotenv import load_dotenv
+
+# Explicitly load .env file
+dotenv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
+load_dotenv(dotenv_path)
+
+# Check if GEMINI_API_KEY is loaded
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
 print(GEMINI_API_KEY)
 
 #GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
@@ -27,7 +34,8 @@ async def call_gemini_api(prompt: str) -> str:
     }
     
     try:
-        response = requests.post(f"{GEMINI_API_URL}?key={GEMINI_API_KEY}", json=payload, headers=headers)
+        #response = requests.post(f"{GEMINI_API_URL}?key={GEMINI_API_KEY}", json=payload, headers=headers)
+        response = requests.post(GEMINI_API_URL, json=payload, headers=headers)
         response.raise_for_status()  # Raise error for non-200 responses
         data = response.json()
         
