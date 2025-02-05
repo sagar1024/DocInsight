@@ -34,7 +34,7 @@ async def process_document(file: io.BytesIO):
             image_count += 1
 
     # Simple text summarization (can be replaced with NLP-based summarization)
-    summary = summarize_text(text_content)
+    summary = await summarize_text(text_content)
 
     return {
         "summary": summary,
