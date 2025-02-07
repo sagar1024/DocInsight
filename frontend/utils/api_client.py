@@ -59,6 +59,35 @@ def summarize_document(document, summary_length=0.5, focus_sections="", language
         print(f"Summarization API Error: {e}")
         return None
 
+def query_chatbot(prompt):
+    """
+    Send a prompt to the chatbot API and get the response.
+    """
+    try:
+        response = requests.post(f"{BASE_URL}/chatbot", json={"prompt": prompt})
+        if response.status_code == 200:
+            return response.json().get("response", "No response received.")
+        return None
+    except requests.exceptions.RequestException as e:
+        print(f"Chatbot API Error: {e}")
+        return None
+
+def voice_command(command):
+    """
+    Send a voice command to the backend API and get the response.
+    """
+    try:
+        response = requests.post(
+            f"{BASE_URL}/voice/command",
+            json={"command": command},
+        )
+        if response.status_code == 200:
+            return response.json()  # Backend response
+        return None
+    except requests.exceptions.RequestException as e:
+        print(f"Voice Command API Error: {e}")
+        return None
+    
 def fetch_preferences(user_id):
     """
     Fetch user preferences from the backend API.
@@ -85,67 +114,35 @@ def update_preferences(user_id, preferences):
     except requests.exceptions.RequestException as e:
         print(f"Update Preferences API Error: {e}")
         return False
-
-def query_chatbot(prompt):
-    """
-    Send a prompt to the chatbot API and get the response.
-    """
-    try:
-        response = requests.post(
-            f"{BASE_URL}/chatbot/query",
-            json={"prompt": prompt},
-        )
-        if response.status_code == 200:
-            return response.json()  # Chatbot response
-        return None
-    except requests.exceptions.RequestException as e:
-        print(f"Chatbot API Error: {e}")
-        return None
-
-def voice_command(command):
-    """
-    Send a voice command to the backend API and get the response.
-    """
-    try:
-        response = requests.post(
-            f"{BASE_URL}/voice/command",
-            json={"command": command},
-        )
-        if response.status_code == 200:
-            return response.json()  # Backend response
-        return None
-    except requests.exceptions.RequestException as e:
-        print(f"Voice Command API Error: {e}")
-        return None
     
 #NEW CODE -
 
-def call_summarization_api(document_file, customization_options):
-    """Calls the summarization API with the provided document and options."""
-    url = f"{BASE_URL}/api/summarization"
-    files = {"file": document_file}
-    data = customization_options
+# def call_summarization_api(document_file, customization_options):
+#     """Calls the summarization API with the provided document and options."""
+#     url = f"{BASE_URL}/api/summarization"
+#     files = {"file": document_file}
+#     data = customization_options
 
-    try:
-        response = requests.post(url, files=files, data=data)
-        response.raise_for_status()
-        return response.json()  # Parsed JSON response
-    except requests.RequestException as e:
-        print(f"Error calling summarization API: {e}")
-        return {"error": str(e)}
+#     try:
+#         response = requests.post(url, files=files, data=data)
+#         response.raise_for_status()
+#         return response.json()  # Parsed JSON response
+#     except requests.RequestException as e:
+#         print(f"Error calling summarization API: {e}")
+#         return {"error": str(e)}
 
-def call_chatbot_api(query, document_id):
-    """Sends a query to the chatbot API."""
-    url = f"{BASE_URL}/api/chatbot"
-    payload = {"query": query, "document_id": document_id}
+# def call_chatbot_api(query, document_id):
+#     """Sends a query to the chatbot API."""
+#     url = f"{BASE_URL}/api/chatbot"
+#     payload = {"query": query, "document_id": document_id}
 
-    try:
-        response = requests.post(url, json=payload)
-        response.raise_for_status()
-        return response.json()
-    except requests.RequestException as e:
-        print(f"Error calling chatbot API: {e}")
-        return {"error": str(e)}
+#     try:
+#         response = requests.post(url, json=payload)
+#         response.raise_for_status()
+#         return response.json()
+#     except requests.RequestException as e:
+#         print(f"Error calling chatbot API: {e}")
+#         return {"error": str(e)}
 
 def authenticate_user(email, password):
     """Sends login credentials to the backend authentication API."""

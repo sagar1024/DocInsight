@@ -1,12 +1,21 @@
 import requests
 import os
 
-# Load API Key from environment variables
+from dotenv import load_dotenv
+
+#Explicitly load .env file
+dotenv_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".env"))
+load_dotenv(dotenv_path)
+
+#Load API Key from environment variables
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-# Gemini API endpoint (replace with the correct one if needed)
-GEMINI_API_URL = "https://api.gemini.com/v1/chat"
+#print(GEMINI_API_KEY)
 
+#Correct Gemini API URL
+#GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key={GEMINI_API_KEY}"
+GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_API_KEY}"
+    
 def generate_chatbot_reply(query: str) -> str:
     """
     Sends the user's query to the Gemini API and returns the chatbot's response.
@@ -21,26 +30,28 @@ def generate_chatbot_reply(query: str) -> str:
         return "Error: Missing Gemini API Key."
 
     payload = {
-        "model": "gemini-pro",  # Adjust based on available models
-        "messages": [{"role": "user", "content": query}],
-        "temperature": 0.7,  # Adjust temperature for creativity
+        "contents": [
+            {
+                "parts": [{"text": query}]
+            }
+        ]
     }
 
-    headers = {
-        "Authorization": f"Bearer {GEMINI_API_KEY}",
-        "Content-Type": "application/json",
-    }
+    headers = {"Content-Type": "application/json"}
 
     try:
         response = requests.post(GEMINI_API_URL, json=payload, headers=headers)
-        response.raise_for_status()  # Raise an error for HTTP issues
+        response.raise_for_status()
         result = response.json()
-        
-        # Extract the chatbot's response
-        return result.get("choices", [{}])[0].get("message", {}).get("content", "No response received.")
-    
+
+        print("Gemini API Raw Response:", result)  # Debugging
+
+        # Correct parsing logic based on actual response
+        if "candidates" in result and result["candidates"]:
+            return result["candidates"][0].get("content", {}).get("parts", [{}])[0].get("text", "No response.")
+        return "No valid response from API."
+
     except requests.exceptions.RequestException as e:
         return f"Error: Failed to connect to Gemini API - {str(e)}"
     except KeyError:
         return "Error: Unexpected API response format."
-    
