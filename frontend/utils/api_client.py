@@ -1,7 +1,7 @@
 import requests
 
 #BASE_URL = "http://localhost:8000/api"  # Replace with your backend's URL if hosted remotely.
-BASE_URL = "http://127.0.0.1:8000"  # Replace with your backend's URL if hosted remotely.
+BASE_URL = "http://127.0.0.1:8000"  # Backend's URL (hosted remotely)
 
 def login_user(username, password):
     """
