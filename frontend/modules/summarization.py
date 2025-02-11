@@ -26,7 +26,7 @@ def render():
         if st.button("Generate Summary"):
             st.info("Generating summary...")
 
-            # Now call the backend API to generate the summary
+            #Call the backend API to generate the summary
             summary = summarize_document(
                 document=uploaded_file,
                 summary_length=summary_length,
