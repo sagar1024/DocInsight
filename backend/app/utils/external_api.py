@@ -17,13 +17,18 @@ async def call_gemini_api(prompt: str) -> str:
     """
     Calls the Gemini API with a given prompt.
 
-    Args:
-        prompt (str): The user's query, optionally including document context.
+    Args: prompt (str): The user's query, optionally including document context.
 
-    Returns:
-        str: The chatbot's response.
+    Returns: str: The chatbot's response.
     """
+    
     headers = {"Content-Type": "application/json"}
+    max_length = 5000  # Gemini API might have length limits
+    
+    #Trim the text if it's too long
+    if len(prompt) > max_length:
+        prompt = prompt[:max_length] + "...\n[Content trimmed]"
+        
     payload = {
         "contents": [
             {"parts": [{"text": prompt}]}

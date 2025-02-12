@@ -3,10 +3,6 @@ import io
 import pytesseract
 from PIL import Image
 from fastapi import UploadFile
-
-#from transformers import pipeline
-
-#from utils import external_api
 from app.utils.external_api import call_gemini_api
 
 async def process_document(file: io.BytesIO):
@@ -15,7 +11,9 @@ async def process_document(file: io.BytesIO):
     Performs OCR on images if necessary and generates a text summary.
     """
     text_content = ""
+    image_text_content = ""  # Store extracted text from images
     image_count = 0
+    
     pdf_document = fitz.open(stream=file.read(), filetype="pdf")  # Read PDF
 
     for page in pdf_document:
@@ -30,27 +28,20 @@ async def process_document(file: io.BytesIO):
             image = Image.open(io.BytesIO(image_bytes))
 
             # Perform OCR on the image
-            text_content += pytesseract.image_to_string(image)
+            extracted_text = pytesseract.image_to_string(image)
+            image_text_content += extracted_text + "\n"  # Append extracted text
             image_count += 1
+            
+    # Merge document text and image text before summarization
+    combined_text = text_content + "\n" + image_text_content
 
     # Simple text summarization (can be replaced with NLP-based summarization)
-    summary = await summarize_text(text_content)
+    summary = await summarize_text(combined_text)
 
     return {
         "summary": summary,
         "images": image_count
     }
-
-#summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
-# def summarize_text(text: str) -> str:
-#     """
-#     Uses a pre-trained BART summarization model to generate a better summary.
-#     """
-#     if len(text) < 100:
-#         return text  # If the text is short, return it as is
-
-#     summary = summarizer(text, max_length=150, min_length=50, do_sample=False)
-#     return summary[0]["summary_text"]
 
 async def summarize_text(text: str) -> str:
     """
