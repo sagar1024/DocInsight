@@ -1,3 +1,7 @@
+import numpy as np
+import re
+import cv2
+
 import fitz  #PyMuPDF for PDF processing
 import io
 import pytesseract
@@ -28,7 +32,11 @@ async def process_document(file: io.BytesIO):
             image = Image.open(io.BytesIO(image_bytes))
 
             # Perform OCR on the image
-            extracted_text = pytesseract.image_to_string(image)
+            processed_image = preprocess_image(image)
+            extracted_text = pytesseract.image_to_string(processed_image)
+            
+            extracted_text = clean_extracted_text(extracted_text)
+            
             image_text_content += extracted_text + "\n"  # Append extracted text
             image_count += 1
             
@@ -42,6 +50,21 @@ async def process_document(file: io.BytesIO):
         "summary": summary,
         "images": image_count
     }
+
+def preprocess_image(image):
+    # Convert to grayscale
+    gray = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2GRAY)
+    # Apply threshold to binarize the image
+    _, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
+    # Optional: Denoise the image
+    denoised = cv2.fastNlMeansDenoising(thresh, None, 30, 7, 21)
+    
+    return Image.fromarray(denoised)
+
+def clean_extracted_text(text):
+    # Remove non-ASCII or special characters
+    cleaned_text = re.sub(r'[^\x00-\x7F]+', ' ', text)
+    return cleaned_text
 
 async def summarize_text(text: str) -> str:
     """
