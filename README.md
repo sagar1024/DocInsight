@@ -8,10 +8,10 @@
 
 #### Features
 
-1. Document Summarization - Summarize documents with AI-driven accuracy.
+1. Document Summarization - Summarize documents using GeminiAPI
 
-2. Interactive Chatbot - Ask queries about your documents using a conversational chatbot.
+2. Interactive Chatbot - Ask queries about your documents
 
-3. Voice Assistant - Listen to document summaries and navigate using voice commands.
+3. Voice Assistant - Listen to document summaries and navigate using voice commands
 
 4. Customizations - Adjust summary length, focusing on specific sections.
