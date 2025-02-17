@@ -2,7 +2,9 @@
 
 **DocInsight** is an NLP-driven web application designed to save user's time in analyzing and comprehending complex documents. It offers document summarization, interactive chatbot for queries, voice commands, and customizable options to make document analysis more efficient.
 
+
 ---
+
 
 #### Features
 
@@ -13,4 +15,3 @@
 3. Voice Assistant - Listen to document summaries and navigate using voice commands.
 
 4. Customizations - Adjust summary length, focusing on specific sections.
-
