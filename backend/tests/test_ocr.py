@@ -1,3 +1,7 @@
+#Using this small streamlit website to check if OCR is working properly
+#Got the error
+#Installed tesseract and now its working
+
 import io
 import cv2
 import numpy as np
