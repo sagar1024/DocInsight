@@ -8,6 +8,7 @@ class UserBase(BaseModel):
 
 # User Creation Schema
 class UserCreate(UserBase):
+    username: str
     password: str
 
 # User Response Schema
@@ -59,6 +60,7 @@ class ChatHistoryResponse(ChatHistoryBase):
 class Token(BaseModel):
     access_token: str
     token_type: str
+    user: UserResponse
 
 class TokenData(BaseModel):
     id: Optional[int] = None

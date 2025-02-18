@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from datetime import timedelta
-
 from .. import schemas, models, utils
 from ..database import get_db
 
@@ -18,7 +17,11 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     
     # Hash the user's password and create the user
     hashed_password = utils.auth.hash_password(user.password)
-    new_user = models.User(email=user.email, hashed_password=hashed_password)
+    new_user = models.User(
+        username=user.username,
+        email=user.email,
+        hashed_password=hashed_password
+        )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
@@ -35,17 +38,32 @@ def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = D
     # Generate an access token
     access_token_expires = timedelta(minutes=utils.auth.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = utils.auth.create_access_token(data={"sub": user.id}, expires_delta=access_token_expires)
-    return {"access_token": access_token, "token_type": "bearer"}
+    
+    return {
+    "access_token": access_token,
+    "token_type": "bearer",
+    "user": user
+    }
 
 # Get the current user
-@router.get("/me", response_model=schemas.UserResponse)
-def get_current_user(token: str, db: Session = Depends(get_db)):
+# @router.get("/me", response_model=schemas.UserResponse)
+# def get_current_user(token: str, db: Session = Depends(get_db)):
+#     user_id = utils.auth.decode_access_token(token)
+#     if user_id is None:
+#         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
+#     user = db.query(models.User).filter(models.User.id == user_id).first()
+#     if not user:
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")    
+#     return user
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")  # Token URL
+
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     user_id = utils.auth.decode_access_token(token)
     if user_id is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
-    
+
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
-    
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")    
     return user
