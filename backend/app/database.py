@@ -4,12 +4,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, declarative_base
 from app.config import settings
 
-# Database URL from config
-#DATABASE_URL = settings.DATABASE_URL
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost/dbname")
+#Database URL from config
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost/docinsight_db")
 
-# SQLAlchemy setup
-
+#SQLAlchemy setup
 #Create the database engine
 engine = create_engine(DATABASE_URL)
 
