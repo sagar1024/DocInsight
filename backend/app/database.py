@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from app.config import settings
 
 #Database URL from config
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost/docinsight_db")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://sagar:password@localhost/docinsight_db")
 
 #SQLAlchemy setup
 #Create the database engine
@@ -26,3 +26,4 @@ def get_db():
         yield db
     finally:
         db.close()
+        
