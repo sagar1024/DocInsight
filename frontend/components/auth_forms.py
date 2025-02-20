@@ -17,7 +17,6 @@ def render_login_form():
             return None
     return None
 
-
 def render_signup_form():
     """Renders the signup form and returns the user input."""
     st.subheader("Sign Up")
