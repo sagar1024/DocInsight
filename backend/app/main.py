@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routes import summarization, chatbot, voice, preferences
+from app.routes import summarization, chatbot, auth, voice, preferences
 from app.database import Base, engine
 
 # Initialize database tables
@@ -23,6 +23,9 @@ def health_check():
 app.include_router(summarization.router)
 #app.include_router(chatbot.router, prefix="/chatbot", tags=["Chatbot"])
 app.include_router(chatbot.router)
+
+#Adding auth router
+app.include_router(auth.router)
 
 app.include_router(voice.router, prefix="/voice", tags=["Voice"])
 app.include_router(preferences.router, prefix="/preferences", tags=["Preferences"])

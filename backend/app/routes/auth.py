@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from datetime import timedelta
 from .. import schemas, models, utils
+from ..utils.auth import hash_password, verify_password, create_access_token, decode_access_token, ACCESS_TOKEN_EXPIRE_MINUTES
 from ..database import get_db
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -16,11 +17,11 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered")
     
     # Hash the user's password and create the user
-    hashed_password = utils.auth.hash_password(user.password)
+    hashed_password = hash_password(user.password)
     new_user = models.User(
-        username=user.username,
         email=user.email,
-        hashed_password=hashed_password
+        hashed_password=hashed_password,
+        username=user.username
         )
     db.add(new_user)
     db.commit()
@@ -32,12 +33,12 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     # Authenticate the user
     user = db.query(models.User).filter(models.User.email == form_data.username).first()
-    if not user or not utils.auth.verify_password(form_data.password, user.hashed_password):
+    if not user or not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
     
     # Generate an access token
-    access_token_expires = timedelta(minutes=utils.auth.ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = utils.auth.create_access_token(data={"sub": user.id}, expires_delta=access_token_expires)
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(data={"sub": user.id}, expires_delta=access_token_expires)
     
     return {
     "access_token": access_token,
@@ -45,21 +46,10 @@ def login_user(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = D
     "user": user
     }
 
-# Get the current user
-# @router.get("/me", response_model=schemas.UserResponse)
-# def get_current_user(token: str, db: Session = Depends(get_db)):
-#     user_id = utils.auth.decode_access_token(token)
-#     if user_id is None:
-#         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
-#     user = db.query(models.User).filter(models.User.id == user_id).first()
-#     if not user:
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")    
-#     return user
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")  # Token URL
 
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
-    user_id = utils.auth.decode_access_token(token)
+    user_id = decode_access_token(token)
     if user_id is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token")
 

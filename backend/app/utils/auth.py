@@ -1,62 +1,65 @@
-from typing import Optional  # Fix for Optional
+from typing import Optional
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+import os
+from sqlalchemy.orm import Session
+from app.models.users import User
+from app.database import get_db
 
 # Configuration for password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# JWT configuration
-SECRET_KEY = "your_secret_key"
+# JWT Configuration
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "your_secret_key")  # Ensure to set this in your environment
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
+# OAuth2 scheme
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
+
 # Hash the password
 def hash_password(password: str) -> str:
+    """Hash a plaintext password."""
     return pwd_context.hash(password)
 
 # Verify password
 def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Compare a plaintext password with its hashed version."""
     return pwd_context.verify(plain_password, hashed_password)
 
 # Create an access token
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
+    """Generate a JWT token."""
     to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.now(timezone.utc) + expires_delta
-    else:
-        expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
     to_encode.update({"exp": expire})
+    
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
-# Verify access token
-def decode_access_token(token: str):
+# Decode access token
+def decode_access_token(token: str) -> Optional[int]:
+    """Decode a JWT token and extract the user ID."""
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id: int = payload.get("sub")
+        user_id = payload.get("sub")
         if user_id is None:
-            raise ValueError("Invalid token payload")
-        return user_id
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token: User ID missing",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        return int(user_id)
     except JWTError:
-        return None
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
-#Getting the current USER -
-
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
-
-import os
-from app.models.users import User
-from app.database import get_db
-from sqlalchemy.orm import Session
-
-# Secret key for JWT encoding and decoding
-SECRET_KEY = os.getenv("JWT_SECRET_KEY", "your_secret_key")
-ALGORITHM = "HS256"
-
-# Define OAuth2 scheme
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
-
+# Get the current authenticated user
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User:
     """
     Decodes and verifies the JWT token to retrieve the authenticated user.
@@ -71,27 +74,14 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     Raises:
         HTTPException: If the token is invalid or the user is not found.
     """
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Invalid authentication credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
+    user_id = decode_access_token(token)
+    user = db.query(User).filter(User.id == user_id).first()
 
-    try:
-        # Decode token
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id: str = payload.get("sub")
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
-        if user_id is None:
-            raise credentials_exception
-
-        # Fetch user from the database
-        user = db.query(User).filter(User.id == user_id).first()
-        if user is None:
-            raise credentials_exception
-        
-        return user
-
-    except JWTError:
-        raise credentials_exception
-    
+    return user
