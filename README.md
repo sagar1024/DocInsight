@@ -14,4 +14,4 @@
 
 3. Voice Assistant - Listen to document summaries and navigate using voice commands
 
-4. Customizations - Adjust summary length, focusing on specific sections.
+4. User Preferences - Adjust summary length, focusing on specific sections.
