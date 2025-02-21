@@ -9,6 +9,7 @@ class UserBase(BaseModel):
 # User Creation Schema
 class UserCreate(UserBase):
     username: str
+    email: EmailStr
     password: str
 
 # User Response Schema

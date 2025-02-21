@@ -2,18 +2,18 @@ import requests
 
 BASE_URL = "http://127.0.0.1:8000"  # Backend's URL (hosted remotely)
 
-def register_user(email, password, name):
+def register_user(email, password, username):
     """
     Register a new user with the backend API.
     """
     try:
         response = requests.post(
             f"{BASE_URL}/auth/register",
-            json={"email": email, "password": password, "name": name},
+            json={"username": username, "email": email, "password": password},
         )
         if response.status_code == 201:
             return response.json()  # Registration successful
-        return None
+        return {"error": "Registration failed"}
     except requests.exceptions.RequestException as e:
         print(f"Register API Error: {e}")
         return None

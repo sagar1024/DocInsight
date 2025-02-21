@@ -62,8 +62,10 @@ def render_auth_page():
     elif auth_option == "Sign Up":
         user_data = render_signup_form()
         if user_data:
-            response = register_user(user_data["email"], user_data["password"], user_data["name"])
-            if "success" in response:
+            response = register_user(user_data["username"], user_data["email"], user_data["password"])
+            print("Register API Response:", response)  #Debugging
+            #if "success" in response:
+            if response and "success" in response:
                 st.success("Registration successful! Please log in.")
             else:
                 show_message("Registration failed. Please try again.", "error")
