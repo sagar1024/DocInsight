@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from datetime import timedelta
@@ -31,7 +31,10 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 #     return new_user
 
 @router.post("/register")
-def register_user(user: UserCreate, db: Session = Depends(get_db)):
+async def register_user(request: Request, user: UserCreate, db: Session = Depends(get_db)):
+    data = await request.json()  #Extract JSON payload
+    print("Received Data:", data)  #Debugging print statement
+    
     existing_user = db.query(User).filter(User.email == user.email).first()
     if existing_user:
         raise HTTPException(status_code=400, detail="Email already registered")
