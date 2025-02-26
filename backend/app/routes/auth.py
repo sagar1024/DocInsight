@@ -39,8 +39,6 @@ async def register_user(request: Request, user: UserCreate, db: Session = Depend
     if existing_user:
         raise HTTPException(status_code=400, detail="Email already registered")
     
-    print("Hashed Password:", hash_password(user.password)) #Debugging
-    
     new_user = User(
         username=user.username,
         email=user.email,
