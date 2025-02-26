@@ -2,6 +2,9 @@ from fastapi import FastAPI
 from app.routes import summarization, chatbot, auth, voice, preferences
 from app.database import Base, engine
 
+#Initialize database tables
+Base.metadata.create_all(bind=engine)
+
 #Create FastAPI app instance
 app = FastAPI(
     title="DocInsight API",
@@ -9,10 +12,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
-#Initialize database tables
-Base.metadata.create_all(bind=engine)
-
-# Health Check Route
+#Health Check Route
 @app.get("/")
 def health_check():
     return {"message": "Welcome to DocInsight"}

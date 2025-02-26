@@ -32,17 +32,21 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 
 @router.post("/register")
 async def register_user(request: Request, user: UserCreate, db: Session = Depends(get_db)):
-    data = await request.json()  #Extract JSON payload
-    print("Received Data:", data)  #Debugging print statement
+    # data = await request.json()  #Extract JSON payload
+    # print("Received Data:", data)  #Debugging print statement
     
     existing_user = db.query(User).filter(User.email == user.email).first()
     if existing_user:
         raise HTTPException(status_code=400, detail="Email already registered")
+    
+    print("Hashed Password:", hash_password(user.password)) #Debugging
+    
     new_user = User(
         username=user.username,
         email=user.email,
         hashed_password=hash_password(user.password)  # Store hashed password
     )
+    
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
