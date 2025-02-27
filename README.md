@@ -14,6 +14,8 @@
 
 4. User Preferences - Adjust summary length, focusing on specific sections.
 
+---
+
 ### Tech Stack
 
 Frontend: Streamlit
