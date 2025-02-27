@@ -13,3 +13,15 @@
 3. Voice Assistant - Listen to document summaries and navigate using voice commands
 
 4. User Preferences - Adjust summary length, focusing on specific sections.
+
+### Tech Stack
+
+Frontend: Streamlit
+
+Backend: FastAPI
+
+Database: PostgreSQL
+
+AI Models: GeminiAPI(for chatbot)
+
+OCR: OpenCV & Tesseract
