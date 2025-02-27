@@ -72,3 +72,6 @@ streamlit run app.py
 
 5. Listen to audio summaries for hands-free interaction.
 
+---
+
+#### This project, DocInsight, is being developed as part of the curriculum for the MCA program at Christ University, Bangalore. It is designed to showcase practical applications of Natural Language Processing (NLP) and AI-driven document analysis. The project aims to enhance efficiency in document summarization, query-based interaction, and voice-based accessibility.
