@@ -18,12 +18,12 @@
 
 ### Tech Stack
 
-Frontend: Streamlit
+1. Frontend: Streamlit
 
-Backend: FastAPI
+2. Backend: FastAPI
 
-Database: PostgreSQL
+3. Database: PostgreSQL
 
-AI Models: GeminiAPI(for chatbot)
+4. AI Models: GeminiAPI(for chatbot)
 
-OCR: OpenCV & Tesseract
+5. OCR: OpenCV & Tesseract
