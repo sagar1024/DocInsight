@@ -27,3 +27,16 @@
 4. AI Models: GeminiAPI(for chatbot)
 
 5. OCR: OpenCV & Tesseract
+
+### Usage
+
+1. Upload your document (PDF, DOCX, PPTX, XLSX).
+
+2. Choose between summarization, chatbot interaction, or voice narration.
+
+3. Customize your summary (short, medium, detailed).
+
+4. Ask the AI chatbot about specific sections of your document.
+
+5. Listen to audio summaries for hands-free interaction.
+
