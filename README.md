@@ -28,6 +28,8 @@
 
 5. OCR: OpenCV & Tesseract
 
+---
+
 ### Usage
 
 1. Upload your document (PDF, DOCX, PPTX, XLSX).
