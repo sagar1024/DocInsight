@@ -1,4 +1,5 @@
 import requests
+import streamlit as st
 
 BASE_URL = "http://127.0.0.1:8000"  # Backend's URL (hosted remotely)
 
@@ -61,19 +62,39 @@ def summarize_document(document, summary_length=100, focus_sections="", language
         response = requests.post(f"{BASE_URL}/summarize", files=files, data=data)
 
         if response.status_code == 200:
-            return response.json()  # Returns the summary data
+            #return response.json() #Returns the summary data
+            summary_data = response.json()
+            #Store summary in session state
+            st.session_state["document_summary"] = summary_data.get("summary", "")
+            return summary_data
         else:
             return None
     except requests.exceptions.RequestException as e:
         print(f"Summarization API Error: {e}")
         return None
 
-def query_chatbot(prompt):
+# def query_chatbot(prompt):
+#     """
+#     Send a prompt to the chatbot API and get the response.
+#     """
+#     try:
+#         response = requests.post(f"{BASE_URL}/chatbot", json={"prompt": prompt})
+#         if response.status_code == 200:
+#             return response.json().get("response", "No response received.")
+#         return None
+#     except requests.exceptions.RequestException as e:
+#         print(f"Chatbot API Error: {e}")
+#         return None
+
+def query_chatbot(prompt, document_summary=""):
     """
-    Send a prompt to the chatbot API and get the response.
+    Send a prompt and document summary to the chatbot API and get the response.
     """
     try:
-        response = requests.post(f"{BASE_URL}/chatbot", json={"prompt": prompt})
+        response = requests.post(
+            f"{BASE_URL}/chatbot", 
+            json={"prompt": prompt, "document_summary": document_summary}
+        )
         if response.status_code == 200:
             return response.json().get("response", "No response received.")
         return None
