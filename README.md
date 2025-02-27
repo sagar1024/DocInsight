@@ -30,6 +30,36 @@
 
 ---
 
+### Installation & Setup
+
+1️⃣ Clone the Repository
+```bash
+git clone https://github.com/yourusername/docinsight.git
+cd docinsight
+```
+
+2️⃣ Install Dependencies
+
+Make sure you have Python 3.8+ installed. Then, run:
+
+```bash
+pip install -r requirements.txt
+```
+
+3️⃣ Run the Backend (FastAPI)
+
+```bash
+uvicorn backend.main:app --reload
+```
+
+4️⃣ Run the Frontend (Streamlit)
+
+```bash
+streamlit run app.py
+```
+
+---
+
 ### Usage
 
 1. Upload your document (PDF, DOCX, PPTX, XLSX).
