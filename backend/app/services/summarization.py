@@ -8,71 +8,131 @@ from PIL import Image
 from fastapi import UploadFile
 from app.utils.external_api import call_gemini_api
 
-async def process_document(file: io.BytesIO):
+# async def process_document(file: io.BytesIO):
+#     """
+#     Process the uploaded document to extract text and images.
+#     Performs OCR on images if necessary and generates a text summary.
+#     """
+#     text_content = ""
+#     image_text_content = ""  # Store extracted text from images
+#     image_count = 0
+    
+#     pdf_document = fitz.open(stream=file.read(), filetype="pdf")  # Read PDF
+
+#     for page in pdf_document:
+#         # Extract text from each page
+#         text_content += page.get_text("text") + "\n"
+
+#         # Extract images from each page
+#         for img_index, img in enumerate(page.get_images(full=True)):
+#             xref = img[0]
+#             base_image = pdf_document.extract_image(xref)
+#             image_bytes = base_image["image"]
+#             image = Image.open(io.BytesIO(image_bytes))
+
+#             # Perform OCR on the image
+#             processed_image = preprocess_image(image)
+#             extracted_text = pytesseract.image_to_string(processed_image)
+            
+#             extracted_text = clean_extracted_text(extracted_text)
+            
+#             image_text_content += extracted_text + "\n"  # Append extracted text
+#             image_count += 1
+            
+#     # Merge document text and image text before summarization
+#     combined_text = (text_content + "\n" + image_text_content).strip()
+#     if not combined_text:
+#         return {"summary": "No content to summarize", "images": image_count}
+
+#     # Simple text summarization (can be replaced with NLP-based summarization)
+#     summary = await summarize_text(combined_text)
+
+#     return {
+#         "summary": summary,
+#         "images": image_count
+#     }
+
+async def process_document(file: io.BytesIO, summary_length: int, focus_sections: str, language: str):
     """
     Process the uploaded document to extract text and images.
     Performs OCR on images if necessary and generates a text summary.
     """
     text_content = ""
-    image_text_content = ""  # Store extracted text from images
+    image_text_content = ""
     image_count = 0
-    
-    pdf_document = fitz.open(stream=file.read(), filetype="pdf")  # Read PDF
+
+    pdf_document = fitz.open(stream=file.read(), filetype="pdf")
 
     for page in pdf_document:
-        # Extract text from each page
         text_content += page.get_text("text") + "\n"
 
-        # Extract images from each page
         for img_index, img in enumerate(page.get_images(full=True)):
             xref = img[0]
             base_image = pdf_document.extract_image(xref)
             image_bytes = base_image["image"]
             image = Image.open(io.BytesIO(image_bytes))
 
-            # Perform OCR on the image
             processed_image = preprocess_image(image)
             extracted_text = pytesseract.image_to_string(processed_image)
             
             extracted_text = clean_extracted_text(extracted_text)
             
-            image_text_content += extracted_text + "\n"  # Append extracted text
+            image_text_content += extracted_text + "\n"
             image_count += 1
             
-    # Merge document text and image text before summarization
     combined_text = (text_content + "\n" + image_text_content).strip()
     if not combined_text:
         return {"summary": "No content to summarize", "images": image_count}
 
-    # Simple text summarization (can be replaced with NLP-based summarization)
-    summary = await summarize_text(combined_text)
+    # Apply focus sections filtering
+    if focus_sections:
+        combined_text = filter_focus_sections(combined_text, focus_sections)
+
+    # Generate summary
+    summary = await summarize_text(combined_text, summary_length, language)
 
     return {
         "summary": summary,
         "images": image_count
     }
-
+    
 # async def summarize_text(text: str) -> str:
-#     """
-#     Uses the Gemini API to analyze the document text and generate a summary.
-#     """
-#     prompt = f"Summarize the following document:\n\n{text[:5000]}"  # Limit to 5000 characters
-#     response = await call_gemini_api(prompt)
-#     return response
+#     # Split into chunks if text is too long
+#     chunk_size = 5000
+#     chunks = [text[i:i + chunk_size] for i in range(0, len(text), chunk_size)]
 
-async def summarize_text(text: str) -> str:
-    # Split into chunks if text is too long
-    chunk_size = 5000
-    chunks = [text[i:i + chunk_size] for i in range(0, len(text), chunk_size)]
+#     # Summarize each chunk and combine results
+#     summaries = [await call_gemini_api(f"Summarize the following document:\n\n{chunk}") for chunk in chunks]
 
-    # Summarize each chunk and combine results
-    summaries = [await call_gemini_api(f"Summarize the following document:\n\n{chunk}") for chunk in chunks]
+#     # Combine summaries into a final summary
+#     return "\n".join(summaries)
 
-    # Combine summaries into a final summary
-    return "\n".join(summaries)
-
+async def summarize_text(text: str, summary_length: int, language: str) -> str:
+    """
+    Uses the Gemini API to analyze the document text and generate a summary.
+    """
+    prompt = f"Summarize the following document in {language}. Keep it approximately {summary_length} words:\n\n{text[:5000]}"
+    response = await call_gemini_api(prompt)
+    return response
 
 #HELPER functions -
+
+def filter_focus_sections(text: str, focus_sections: str) -> str:
+    """
+    Filters the document text based on the provided focus sections.
+    """
+    sections = focus_sections.split(",")
+    filtered_text = ""
+
+    for section in sections:
+        section = section.strip()
+        pattern = rf"{section}.*?(?=\n[A-Z])"
+        matches = re.findall(pattern, text, re.DOTALL)
+
+        if matches:
+            filtered_text += " ".join(matches) + "\n"
+
+    return filtered_text if filtered_text else text
 
 def preprocess_image(image):
     # Convert to grayscale

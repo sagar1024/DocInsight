@@ -45,25 +45,23 @@ def authenticate_user(email, password):
     except requests.RequestException as e:
         print(f"Error authenticating user: {e}")
         return {"error": str(e)}
-    
-def summarize_document(document, summary_length=0.5, focus_sections="", language="English"):
+
+def summarize_document(document, summary_length=100, focus_sections="", language="English"):
     """
     Send a document for summarization to the backend API.
     """
     try:
-        # Prepare the data
-        files = {"file": document}  # 'file' is the key for the uploaded file
+        files = {"file": document}
         data = {
             "summary_length": summary_length,
             "focus_sections": focus_sections,
             "language": language,
         }
 
-        # Make the API request to the backend
         response = requests.post(f"{BASE_URL}/summarize", files=files, data=data)
-        
+
         if response.status_code == 200:
-            return response.json()  # Returns the summary data (e.g., {"summary": "generated summary"})
+            return response.json()  # Returns the summary data
         else:
             return None
     except requests.exceptions.RequestException as e:

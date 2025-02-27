@@ -21,6 +21,8 @@ def render():
         summary_length = st.slider("Select summary length", 10, 500, 100, step=10)
         focus_sections = st.text_input("Focus on specific sections (optional)", placeholder="e.g., Executive Summary, Conclusion")
         language = st.selectbox("Select summary language", ["English", "Spanish", "French", "German", "Others"])
+        if language == "Others":
+            language = st.text_input("Enter language")
 
         # Generate Summary Button
         if st.button("Generate Summary"):
@@ -39,3 +41,4 @@ def render():
                 st.write(summary["summary"])
             else:
                 st.error("Failed to generate summary. Please try again.")
+                
