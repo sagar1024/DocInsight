@@ -24,7 +24,7 @@
 
 3. Database: PostgreSQL
 
-4. AI Models: GeminiAPI(for chatbot)
+4. AI Models: GeminiAPI
 
 5. OCR: OpenCV & Tesseract
 
