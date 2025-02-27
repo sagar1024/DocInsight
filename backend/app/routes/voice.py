@@ -26,3 +26,4 @@ async def handle_voice_command(command: str):
         return {"response": response}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing voice command: {str(e)}")
+    
