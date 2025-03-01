@@ -102,21 +102,31 @@ def query_chatbot(prompt, document_summary=""):
         print(f"Chatbot API Error: {e}")
         return None
 
-def voice_command(command):
+def voice_command():
     """
-    Send a voice command to the backend API and get the response.
+    Capture user voice, send to backend for STT & chatbot response, return TTS.
     """
     try:
-        response = requests.post(
-            f"{BASE_URL}/voice/command",
-            json={"command": command},
-        )
+        response = requests.post(f"{BASE_URL}/voice/command")
         if response.status_code == 200:
-            return response.json()  # Backend response
-        return None
+            return response.json()
+        return {"error": "Voice command processing failed"}
     except requests.exceptions.RequestException as e:
         print(f"Voice Command API Error: {e}")
-        return None
+        return {"error": str(e)}
+
+def narrate_text(text):
+    """
+    Send text to the backend TTS API and receive the generated audio file path.
+    """
+    try:
+        response = requests.post(f"{BASE_URL}/voice/narrate", json={"text": text})
+        if response.status_code == 200:
+            return response.json().get("audio", None)
+        return {"error": "TTS failed"}
+    except requests.exceptions.RequestException as e:
+        print(f"TTS API Error: {e}")
+        return {"error": str(e)}
     
 def fetch_preferences(user_id):
     """

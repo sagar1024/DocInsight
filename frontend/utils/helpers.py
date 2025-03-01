@@ -38,17 +38,6 @@ def clear_user_session():
     st.session_state.pop("preferences", None)
     st.session_state["show_auth_forms"] = True
 
-# def read_uploaded_file(uploaded_file):
-#     """
-#     Read uploaded file and return its content.
-#     """
-#     if uploaded_file is not None:
-#         try:
-#             return uploaded_file.read()
-#         except Exception as e:
-#             print(f"Error reading uploaded file: {e}")
-#     return None
-
 def process_uploaded_file(uploaded_file):
     """Processes an uploaded file and returns its content."""
     try:
