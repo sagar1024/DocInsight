@@ -73,19 +73,6 @@ def summarize_document(document, summary_length=100, focus_sections="", language
         print(f"Summarization API Error: {e}")
         return None
 
-# def query_chatbot(prompt):
-#     """
-#     Send a prompt to the chatbot API and get the response.
-#     """
-#     try:
-#         response = requests.post(f"{BASE_URL}/chatbot", json={"prompt": prompt})
-#         if response.status_code == 200:
-#             return response.json().get("response", "No response received.")
-#         return None
-#     except requests.exceptions.RequestException as e:
-#         print(f"Chatbot API Error: {e}")
-#         return None
-
 def query_chatbot(prompt, document_summary=""):
     """
     Send a prompt and document summary to the chatbot API and get the response.
