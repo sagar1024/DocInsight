@@ -80,9 +80,9 @@ def main():
     load_custom_css()
     
     #User authentication
-    if "authenticated" not in st.session_state or not st.session_state["authenticated"]:
-        render_auth_page()
-        return
+    # if "authenticated" not in st.session_state or not st.session_state["authenticated"]:
+    #     render_auth_page()
+    #     return
 
     # Render the navigation bar
     selection = render_navbar()
