@@ -19,28 +19,31 @@ def register_user(username, email, password):
         print(f"Register API Error: {e}")
         return None
 
-def login_user(username, password):
+# def login_user(username, password):
+#     """
+#     Authenticate user with the backend API.
+#     """
+#     try:
+#         response = requests.post(
+#             f"{BASE_URL}/auth/login",
+#             json={"username": username, "password": password},
+#         )
+#         if response.status_code == 200:
+#             return response.json()  # User details
+#         return None
+#     except requests.exceptions.RequestException as e:
+#         print(f"Login API Error: {e}")
+#         return None
+
+def authenticate_user(email, password):
     """
-    Authenticate user with the backend API.
+    Sends login credentials to the backend authentication API.
     """
     try:
         response = requests.post(
             f"{BASE_URL}/auth/login",
-            json={"username": username, "password": password},
-        )
-        if response.status_code == 200:
-            return response.json()  # User details
-        return None
-    except requests.exceptions.RequestException as e:
-        print(f"Login API Error: {e}")
-        return None
-
-def authenticate_user(email, password):
-    """Sends login credentials to the backend authentication API."""
-    url = f"{BASE_URL}/auth/login"
-    payload = {"email": email, "password": password}
-    try:
-        response = requests.post(url, json=payload)
+            json={"email": email, "password": password}
+            )
         response.raise_for_status()
         return response.json()
     except requests.RequestException as e:
