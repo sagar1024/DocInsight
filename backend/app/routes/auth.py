@@ -1,3 +1,4 @@
+import datetime
 from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
@@ -17,37 +18,40 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 #     existing_user = db.query(User).filter(User.email == user.email).first()
 #     if existing_user:
 #         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered")
-    
 #     new_user = User(
 #         username=user.username,
 #         email=user.email,
 #         hashed_password=hash_password(user.password)
 #         )
-    
 #     db.add(new_user)
 #     db.commit()
 #     db.refresh(new_user)
-    
 #     return {"message": "User registered successfully", "user_id": new_user.id}
 
-@router.post("/register", response_model=UserResponse)
+@router.post("/register", response_model=dict)
 def register_user(user: UserCreate, db: Session = Depends(get_db)):
-    #Checking if the user already exists
+    # Check if the user already exists
     existing_user = db.query(User).filter(User.email == user.email).first()
     if existing_user:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered")
-    
+
     new_user = User(
         username=user.username,
         email=user.email,
-        hashed_password=hash_password(user.password)
-        )
-    
+        hashed_password=hash_password(user.password),
+        is_active=True,
+        created_at=datetime.utcnow()
+    )
+
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    
-    return new_user
+
+    return {
+        "success": True,
+        "message": "User registered successfully!",
+        "user_id": new_user.id
+    }
 
 # User login
 @router.post("/login", response_model=schemas.Token)

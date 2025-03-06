@@ -3,7 +3,7 @@ import streamlit as st
 
 BASE_URL = "http://127.0.0.1:8000"  # Backend's URL (hosted remotely)
 
-def register_user(email, password, username):
+def register_user(username, email, password):
     """
     Register a new user with the backend API.
     """
