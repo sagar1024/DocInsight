@@ -38,4 +38,3 @@ def save_preferences(user_id: int, preferences: dict, db: Session) -> None:
             raise ValueError("User not found")
     except Exception as e:
         raise ValueError(f"Failed to save preferences: {str(e)}")
-

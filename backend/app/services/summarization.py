@@ -51,17 +51,6 @@ async def process_document(file: io.BytesIO, summary_length: int, focus_sections
         "summary": summary,
         "images": image_count
     }
-    
-# async def summarize_text(text: str) -> str:
-#     # Split into chunks if text is too long
-#     chunk_size = 5000
-#     chunks = [text[i:i + chunk_size] for i in range(0, len(text), chunk_size)]
-
-#     # Summarize each chunk and combine results
-#     summaries = [await call_gemini_api(f"Summarize the following document:\n\n{chunk}") for chunk in chunks]
-
-#     # Combine summaries into a final summary
-#     return "\n".join(summaries)
 
 async def summarize_text(text: str, summary_length: int, language: str) -> str:
     """

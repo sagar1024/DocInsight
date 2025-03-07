@@ -38,16 +38,6 @@ def clear_user_session():
     st.session_state.pop("preferences", None)
     st.session_state["show_auth_forms"] = True
 
-def process_uploaded_file(uploaded_file):
-    """Processes an uploaded file and returns its content."""
-    try:
-        if uploaded_file is not None:
-            file_bytes = uploaded_file.read()
-            return file_bytes
-    except Exception as e:
-        st.error(f"Error processing uploaded file: {e}")
-        return None
-
 def format_summary(summary_data):
     """
     Format the summary data for display.
@@ -62,13 +52,3 @@ def format_summary(summary_data):
     for idx, point in enumerate(key_points, start=1):
         formatted += f"{idx}. {point}\n"
     return formatted
-
-def play_audio(file_path):
-    """
-    Play an audio file from the given file path.
-    """
-    try:
-        playsound(file_path)
-    except Exception as e:
-        print(f"Error playing audio: {e}")
-        

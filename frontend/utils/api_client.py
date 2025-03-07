@@ -19,22 +19,7 @@ def register_user(username, email, password):
         print(f"Register API Error: {e}")
         return None
 
-# def login_user(username, password):
-#     """
-#     Authenticate user with the backend API.
-#     """
-#     try:
-#         response = requests.post(
-#             f"{BASE_URL}/auth/login",
-#             json={"username": username, "password": password},
-#         )
-#         if response.status_code == 200:
-#             return response.json()  # User details
-#         return None
-#     except requests.exceptions.RequestException as e:
-#         print(f"Login API Error: {e}")
-#         return None
-
+#Login user
 def authenticate_user(email, password):
     """
     Sends login credentials to the backend authentication API.

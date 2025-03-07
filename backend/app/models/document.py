@@ -22,10 +22,3 @@ class Document(Base):
     
     def __repr__(self):
         return f"<Document(filename={self.filename}, upload_time={self.upload_time})>"
-
-# class ImageData(Base):
-#     __tablename__ = "images"
-#     id = Column(Integer, primary_key=True, index=True)
-#     document_id = Column(Integer, ForeignKey("documents.id"))
-#     image = Column(LargeBinary, nullable=False)
-#     ocr_text = Column(String, nullable=True)
