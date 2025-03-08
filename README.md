@@ -4,7 +4,7 @@
 
 ---
 
-### Features
+### Features -
 
 1. Document Summarization - Summarize documents using GeminiAPI
 
@@ -16,7 +16,7 @@
 
 ---
 
-### Tech Stack
+### Tech Stack -
 
 1. Frontend: Streamlit
 
@@ -30,7 +30,7 @@
 
 ---
 
-### Installation & Setup
+### Installation & Setup -
 
 1. Clone the Repository
 ```bash
@@ -62,7 +62,7 @@ streamlit run app.py
 
 ---
 
-### How to USE
+### How to USE -
 
 1. Upload your document (PDF, DOCX, PPTX, XLSX).
 
