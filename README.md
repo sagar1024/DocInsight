@@ -32,13 +32,13 @@
 
 ### Installation & Setup
 
-1️⃣ Clone the Repository
+1. Clone the Repository
 ```bash
 git clone https://github.com/yourusername/docinsight.git
 cd docinsight
 ```
 
-2️⃣ Install Dependencies
+2. Install Dependencies
 
 Make sure you have Python 3.8+ installed. Then, run:
 
@@ -46,15 +46,15 @@ Make sure you have Python 3.8+ installed. Then, run:
 pip install -r requirements.txt
 ```
 
-Create GEMINI_API_KEY from google AI studio. Create a .env file in the backend, and paste your GEMINI_API_KEY in it.
+3. Create GEMINI_API_KEY from google AI studio. Create a .env file in the backend, and paste your GEMINI_API_KEY in it.
 
-3️⃣ Run the Backend (FastAPI)
+4. Run the Backend (FastAPI)
 
 ```bash
 uvicorn backend.main:app --reload
 ```
 
-4️⃣ Run the Frontend (Streamlit)
+5. Run the Frontend (Streamlit)
 
 ```bash
 streamlit run app.py
