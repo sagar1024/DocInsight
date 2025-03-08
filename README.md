@@ -62,7 +62,7 @@ streamlit run app.py
 
 ---
 
-### Usage
+### How to USE
 
 1. Upload your document (PDF, DOCX, PPTX, XLSX).
 
