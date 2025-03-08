@@ -46,6 +46,8 @@ Make sure you have Python 3.8+ installed. Then, run:
 pip install -r requirements.txt
 ```
 
+Create GEMINI_API_KEY from google AI studio. Create a .env file in the backend, and paste your GEMINI_API_KEY in it.
+
 3️⃣ Run the Backend (FastAPI)
 
 ```bash
@@ -72,8 +74,3 @@ streamlit run app.py
 
 5. Listen to audio summaries for hands-free interaction.
 
----
-
-### PURPOSE
-
-This project, DocInsight, is being developed as part of the curriculum for the MCA program at Christ University, Bangalore. It is designed to showcase practical applications of Natural Language Processing (NLP) and AI-driven document analysis. The project aims to enhance efficiency in document summarization, query-based interaction, and voice-based accessibility.
