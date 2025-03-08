@@ -74,3 +74,11 @@ streamlit run app.py
 
 5. Listen to audio summaries for hands-free interaction.
 
+---
+
+## Authors & Contributors
+
+Developed by: Sagar – Creator & Lead Developer
+
+#### Contributors:
+We welcome contributions! If you'd like to improve DocInsight, feel free to fork the repo and submit a pull request.
