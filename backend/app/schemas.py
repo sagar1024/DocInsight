@@ -65,3 +65,16 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     id: Optional[int] = None
+
+#For login feature -
+#Schema for login request (Accept JSON instead of form data)
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+
+#Schema for access token including user details
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    user: UserResponse
+    
