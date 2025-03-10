@@ -80,4 +80,12 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
-    return user
+    #return user
+    return {
+    "id": user.id,
+    "username": user.username,
+    "email": user.email,
+    "is_active": user.is_active,   # Ensure these fields are returned
+    "created_at": user.created_at   # Ensure these fields are returned
+    }
+    

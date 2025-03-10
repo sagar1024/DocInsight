@@ -13,13 +13,22 @@ class UserCreate(UserBase):
     password: str
 
 # User Response Schema
-class UserResponse(UserBase):
+# class UserResponse(UserBase):
+#     id: int
+#     is_active: bool
+#     created_at: datetime
+#     class Config:
+#         orm_mode = True
+
+class UserResponse(BaseModel):
     id: int
-    is_active: bool
-    created_at: datetime
+    username: str
+    email: str
+    is_active: Optional[bool] = None  # Mark as optional
+    created_at: Optional[str] = None  # Mark as optional
 
     class Config:
-        orm_mode = True
+        orm_mode = True  # Allows Pydantic to work with ORM models
 
 # Login Schema
 class UserLogin(BaseModel):

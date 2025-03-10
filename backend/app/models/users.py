@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from datetime import datetime
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from app.database import Base
 from sqlalchemy.orm import relationship
@@ -15,7 +16,9 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
     preferences = Column(String, nullable=True)  # JSON string to store user preferences
-    
+    #created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.utcnow)
+        
     documents = relationship("Document", back_populates="user")
     
     def __repr__(self):
