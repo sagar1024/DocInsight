@@ -4,7 +4,7 @@
 
 ---
 
-### Features
+### Features -
 
 1. Document Summarization - Summarize documents using GeminiAPI
 
@@ -16,7 +16,7 @@
 
 ---
 
-### Tech Stack
+### Tech Stack -
 
 1. Frontend: Streamlit
 
@@ -30,15 +30,15 @@
 
 ---
 
-### Installation & Setup
+### Installation & Setup -
 
-1️⃣ Clone the Repository
+1. Clone the Repository
 ```bash
 git clone https://github.com/yourusername/docinsight.git
 cd docinsight
 ```
 
-2️⃣ Install Dependencies
+2. Install Dependencies
 
 Make sure you have Python 3.8+ installed. Then, run:
 
@@ -46,13 +46,15 @@ Make sure you have Python 3.8+ installed. Then, run:
 pip install -r requirements.txt
 ```
 
-3️⃣ Run the Backend (FastAPI)
+3. Create GEMINI_API_KEY from google AI studio. Create a .env file in the backend, and paste your GEMINI_API_KEY in it.
+
+4. Run the Backend (FastAPI)
 
 ```bash
 uvicorn backend.main:app --reload
 ```
 
-4️⃣ Run the Frontend (Streamlit)
+5. Run the Frontend (Streamlit)
 
 ```bash
 streamlit run app.py
@@ -60,7 +62,7 @@ streamlit run app.py
 
 ---
 
-### Usage
+### How to USE -
 
 1. Upload your document (PDF, DOCX, PPTX, XLSX).
 
@@ -74,6 +76,9 @@ streamlit run app.py
 
 ---
 
-### PURPOSE
+## Authors & Contributors
 
-This project, DocInsight, is being developed as part of the curriculum for the MCA program at Christ University, Bangalore. It is designed to showcase practical applications of Natural Language Processing (NLP) and AI-driven document analysis. The project aims to enhance efficiency in document summarization, query-based interaction, and voice-based accessibility.
+Developed by: Sagar – Creator & Lead Developer
+
+#### Contributors:
+We welcome contributions! If you'd like to improve DocInsight, feel free to fork the repo and submit a pull request.
