@@ -85,7 +85,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     "id": user.id,
     "username": user.username,
     "email": user.email,
-    "is_active": user.is_active,   # Ensure these fields are returned
-    #"created_at": user.created_at   # Ensure these fields are returned
+    "is_active": user.is_active,
+    #"created_at": user.created_at
     }
     

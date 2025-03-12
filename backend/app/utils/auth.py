@@ -25,7 +25,7 @@ def hash_password(password: str) -> str:
     """Hash a plaintext password."""
     return pwd_context.hash(password)
 
-print("Hashed Password:", hash_password("sagar")) #Debugging
+#print("Hashed Password:", hash_password("sagar")) #Debugging
 
 # Verify password
 def verify_password(plain_password: str, hashed_password: str) -> bool:
