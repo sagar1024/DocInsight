@@ -24,7 +24,7 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
         email=user.email,
         hashed_password=hash_password(user.password),
         is_active=True,
-        created_at=datetime.utcnow()
+        #created_at=datetime.utcnow()
     )
 
     db.add(new_user)
@@ -86,6 +86,6 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     "username": user.username,
     "email": user.email,
     "is_active": user.is_active,   # Ensure these fields are returned
-    "created_at": user.created_at   # Ensure these fields are returned
+    #"created_at": user.created_at   # Ensure these fields are returned
     }
     

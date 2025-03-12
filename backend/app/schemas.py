@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from typing import Optional, List
 from datetime import datetime
 
@@ -27,8 +27,10 @@ class UserResponse(BaseModel):
     is_active: Optional[bool] = None  # Mark as optional
     created_at: Optional[str] = None  # Mark as optional
 
-    class Config:
-        orm_mode = True  # Allows Pydantic to work with ORM models
+    # class Config:
+    #     orm_mode = True
+    
+    model_config = ConfigDict(from_attributes=True)
 
 # Login Schema
 class UserLogin(BaseModel):
@@ -47,8 +49,10 @@ class PreferenceCreate(PreferenceBase):
 class PreferenceResponse(PreferenceBase):
     user_id: int
 
-    class Config:
-        orm_mode = True
+    # class Config:
+    #     orm_mode = True
+    
+    model_config = ConfigDict(from_attributes=True)
 
 # Chat History Schema
 class ChatHistoryBase(BaseModel):
@@ -63,8 +67,10 @@ class ChatHistoryResponse(ChatHistoryBase):
     user_id: int
     timestamp: datetime
 
-    class Config:
-        orm_mode = True
+    # class Config:
+    #     orm_mode = True
+    
+    model_config = ConfigDict(from_attributes=True)
 
 # Token Schema
 class Token(BaseModel):

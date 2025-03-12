@@ -129,4 +129,3 @@ def update_preferences(user_id, preferences):
     except requests.exceptions.RequestException as e:
         print(f"Update Preferences API Error: {e}")
         return False
-    

@@ -15,9 +15,8 @@ class User(Base):
     email = Column(String, unique=True, nullable=False)
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
-    preferences = Column(String, nullable=True)  # JSON string to store user preferences
+    preferences = Column(String, nullable=True)
     #created_at = Column(DateTime, default=datetime.utcnow)
-    created_at = Column(DateTime, default=datetime.utcnow)
         
     documents = relationship("Document", back_populates="user")
     

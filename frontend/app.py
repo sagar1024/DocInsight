@@ -57,6 +57,7 @@ def render_auth_page():
                 st.session_state["authenticated"] = True
                 st.session_state["user"] = response
                 st.success(f"Welcome back, {response.get('name', 'User')}!")
+                st.experimental_rerun()  #Force rerun to update the page
             else:
                 show_message("Authentication failed. Please check your credentials.", "error")
     elif auth_option == "Sign Up":
