@@ -77,31 +77,49 @@ def query_chatbot(prompt, document_summary=""):
         print(f"Chatbot API Error: {e}")
         return None
 
-def voice_command():
-    """
-    Capture user voice, send to backend for STT & chatbot response, return TTS.
-    """
-    try:
-        response = requests.post(f"{BASE_URL}/voice/command")
-        if response.status_code == 200:
-            return response.json()
-        return {"error": "Voice command processing failed"}
-    except requests.exceptions.RequestException as e:
-        print(f"Voice Command API Error: {e}")
-        return {"error": str(e)}
+# def voice_command():
+#     """
+#     Capture user voice, send to backend for STT & chatbot response, return TTS.
+#     """
+#     try:
+#         response = requests.post(f"{BASE_URL}/voice/command")
+#         if response.status_code == 200:
+#             return response.json()
+#         return {"error": "Voice command processing failed"}
+#     except requests.exceptions.RequestException as e:
+#         print(f"Voice Command API Error: {e}")
+#         return {"error": str(e)}
 
-def narrate_text(text):
+def send_voice_command(audio_bytes):
     """
-    Send text to the backend TTS API and receive the generated audio file path.
+    Sends recorded voice data to the backend for speech-to-text processing.
     """
-    try:
-        response = requests.post(f"{BASE_URL}/voice/narrate", json={"text": text})
-        if response.status_code == 200:
-            return response.json().get("audio", None)
-        return {"error": "TTS failed"}
-    except requests.exceptions.RequestException as e:
-        print(f"TTS API Error: {e}")
-        return {"error": str(e)}
+    response = requests.post(f"{BASE_URL}/voice/command", files={"audio": ("audio.wav", audio_bytes, "audio/wav")})
+    if response.status_code == 200:
+        return response.json()
+    return {"error": "Voice command processing failed."}
+
+# def narrate_text(text):
+#     """
+#     Send text to the backend TTS API and receive the generated audio file path.
+#     """
+#     try:
+#         response = requests.post(f"{BASE_URL}/voice/narrate", json={"text": text})
+#         if response.status_code == 200:
+#             return response.json().get("audio", None)
+#         return {"error": "TTS failed"}
+#     except requests.exceptions.RequestException as e:
+#         print(f"TTS API Error: {e}")
+#         return {"error": str(e)}
+
+def send_text_to_speech(text):
+    """
+    Sends text to the backend for text-to-speech processing.
+    """
+    response = requests.post(f"{BASE_URL}/voice/narrate", json={"text": text})
+    if response.status_code == 200:
+        return response.json().get("audio", None)
+    return None
     
 def fetch_preferences(user_id):
     """
