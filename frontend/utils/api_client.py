@@ -77,19 +77,6 @@ def query_chatbot(prompt, document_summary=""):
         print(f"Chatbot API Error: {e}")
         return None
 
-# def voice_command():
-#     """
-#     Capture user voice, send to backend for STT & chatbot response, return TTS.
-#     """
-#     try:
-#         response = requests.post(f"{BASE_URL}/voice/command")
-#         if response.status_code == 200:
-#             return response.json()
-#         return {"error": "Voice command processing failed"}
-#     except requests.exceptions.RequestException as e:
-#         print(f"Voice Command API Error: {e}")
-#         return {"error": str(e)}
-
 def send_voice_command(audio_bytes):
     """Send recorded voice data to the backend for STT processing."""
     try:
@@ -101,19 +88,6 @@ def send_voice_command(audio_bytes):
     except requests.exceptions.RequestException as e:
         print(f"Voice Command API Error: {e}")
         return None
-
-# def narrate_text(text):
-#     """
-#     Send text to the backend TTS API and receive the generated audio file path.
-#     """
-#     try:
-#         response = requests.post(f"{BASE_URL}/voice/narrate", json={"text": text})
-#         if response.status_code == 200:
-#             return response.json().get("audio", None)
-#         return {"error": "TTS failed"}
-#     except requests.exceptions.RequestException as e:
-#         print(f"TTS API Error: {e}")
-#         return {"error": str(e)}
 
 def send_text_to_speech(text):
     """Send text to the backend for TTS processing."""

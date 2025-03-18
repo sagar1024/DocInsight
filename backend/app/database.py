@@ -22,14 +22,9 @@ def get_db():
     Provides a database session.
     """
     db = SessionLocal()
-    
-    #Fetch all users (to verify if the table exists)
-    #users = db.query(User).all()
-    
-    #Print the retrieved data
-    #print(users)
 
     try:
         yield db
     finally:
         db.close()
+        

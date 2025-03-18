@@ -12,23 +12,12 @@ class UserCreate(UserBase):
     email: EmailStr
     password: str
 
-# User Response Schema
-# class UserResponse(UserBase):
-#     id: int
-#     is_active: bool
-#     created_at: datetime
-#     class Config:
-#         orm_mode = True
-
 class UserResponse(BaseModel):
     id: int
     username: str
     email: str
     is_active: Optional[bool] = None  # Mark as optional
     created_at: Optional[str] = None  # Mark as optional
-
-    # class Config:
-    #     orm_mode = True
     
     model_config = ConfigDict(from_attributes=True)
 
@@ -48,9 +37,6 @@ class PreferenceCreate(PreferenceBase):
 
 class PreferenceResponse(PreferenceBase):
     user_id: int
-
-    # class Config:
-    #     orm_mode = True
     
     model_config = ConfigDict(from_attributes=True)
 
@@ -66,9 +52,6 @@ class ChatHistoryResponse(ChatHistoryBase):
     id: int
     user_id: int
     timestamp: datetime
-
-    # class Config:
-    #     orm_mode = True
     
     model_config = ConfigDict(from_attributes=True)
 

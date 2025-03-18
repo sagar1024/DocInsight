@@ -9,8 +9,8 @@ def render_auth_page():
     if auth_option == "Login":
         user_data = render_login_form()
         if user_data:
-            st.write(f"User {user_data['email']} logged in!")  # Replace with authentication handling
+            st.write(f"User {user_data['email']} logged in!")
     elif auth_option == "Sign Up":
         user_data = render_signup_form()
         if user_data:
-            st.write(f"User {user_data['email']} signed up!")  # Replace with registration handling
+            st.write(f"User {user_data['email']} signed up!")

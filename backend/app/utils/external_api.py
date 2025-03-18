@@ -36,7 +36,6 @@ async def call_gemini_api(prompt: str) -> str:
     }
     
     try:
-        #response = requests.post(f"{GEMINI_API_URL}?key={GEMINI_API_KEY}", json=payload, headers=headers)
         response = requests.post(GEMINI_API_URL, json=payload, headers=headers)
         response.raise_for_status()  # Raise error for non-200 responses
         data = response.json()
