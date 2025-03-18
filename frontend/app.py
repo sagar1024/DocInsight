@@ -1,4 +1,5 @@
 import streamlit as st
+from components.header import render_header
 from components.navbar import render_navbar
 from components.footer import render_footer
 from components.auth_forms import render_login_form, render_signup_form
@@ -34,6 +35,9 @@ if st.session_state["dark_mode"]:
         """,
         unsafe_allow_html=True
     )
+
+# Render the header at the top
+render_header()
 
 # Define available pages
 PAGES = {
@@ -74,7 +78,7 @@ def render_auth_page():
 def load_custom_css():
     """Inject custom CSS for dark reddish theme."""
     with open("styles.css", "r") as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)   
 
 def main():
     # Load CSS at the start

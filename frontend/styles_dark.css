@@ -1,0 +1,28 @@
+/* Dark Mode */
+body,
+.stApp {
+    background-color: #121212 !important;
+    color: #ffffff !important;
+}
+
+.stSidebar {
+    background-color: #1f1f1f !important;
+    color: #ffffff !important;
+}
+
+.navbar-container {
+    background-color: #2e2e2e !important;
+    color: white !important;
+}
+
+button {
+    background-color: #333333 !important;
+    color: white !important;
+    border-radius: 5px;
+}
+
+input,
+textarea {
+    background-color: #2c2c2c !important;
+    color: white !important;
+}
