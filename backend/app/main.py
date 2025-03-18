@@ -17,6 +17,9 @@ app = FastAPI(
 #app.mount("/generated_audio", StaticFiles(directory="generated_audio"), name="audio")
 
 #Serve generated audio files
+#app.mount("/generated_audio", StaticFiles(directory="generated_audio"), name="audio")
+
+#Ensure FastAPI serves the generated audio files
 app.mount("/generated_audio", StaticFiles(directory="generated_audio"), name="audio")
 
 #Health Check Route

@@ -39,7 +39,7 @@ def render_navbar():
     st.sidebar.markdown("---")
 
     # Navigation Menu
-    st.sidebar.title("📌Navigation")
+    st.sidebar.title("Navigation")
     menu = st.sidebar.radio(
         "Navigate to",
         ["Home", "Summarization", "Chatbot", "Voice Assistant", "Preferences"],

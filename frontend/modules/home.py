@@ -43,7 +43,8 @@ def render():
         ```
         """
     )
+    
+    st.markdown("---")
 
-    st.info("NOTE - Use the **Summarization** page to upload a document and generate summaries.")
-    st.success("Ready to dive into your documents? Let’s get started!")
+    st.success("NOTE - Use the **Summarization** page to upload a document and generate summaries.")
     

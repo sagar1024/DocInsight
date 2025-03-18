@@ -13,7 +13,6 @@ os.makedirs(AUDIO_SAVE_PATH, exist_ok=True)
 
 BASE_URL = "http://localhost:8000"  # Update if deployed
 
-
 @router.post("/voice/command")
 async def process_voice_command(audio: UploadFile = File(...)):
     """
@@ -50,10 +49,28 @@ async def process_voice_command(audio: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error in voice processing: {str(e)}")
 
-
 class TTSRequest(BaseModel):
     text: str
 
+# @router.post("/voice/narrate")
+# async def narrate_text(request: TTSRequest):
+#     """
+#     Convert text into speech using Text-to-Speech (TTS) and return the generated audio URL.
+#     """
+#     try:
+#         # Generate a unique filename for the output speech
+#         audio_filename = f"{uuid.uuid4()}.mp3"
+#         audio_filepath = os.path.join(AUDIO_SAVE_PATH, audio_filename)
+
+#         # Convert text to speech
+#         tts = gTTS(text=request.text, lang="en")
+#         tts.save(audio_filepath)
+
+#         # Return a URL instead of a local file path
+#         return {"audio": f"{BASE_URL}/generated_audio/{audio_filename}"}
+
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f"Error in TTS processing: {str(e)}")
 
 @router.post("/voice/narrate")
 async def narrate_text(request: TTSRequest):
@@ -69,7 +86,7 @@ async def narrate_text(request: TTSRequest):
         tts = gTTS(text=request.text, lang="en")
         tts.save(audio_filepath)
 
-        # Return a URL instead of a local file path
+        # Return the direct download URL
         return {"audio": f"{BASE_URL}/generated_audio/{audio_filename}"}
 
     except Exception as e:

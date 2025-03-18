@@ -35,9 +35,16 @@ def render():
         if st.button("Play Summary Audio"):
             with st.spinner("Generating narration..."):
                 audio_url = send_text_to_speech(summary)
-            
+                
             if audio_url:
                 st.audio(audio_url, format="audio/mp3")
+                #Provide a download button
+                st.download_button(
+                    label="Download Audio",
+                    data=requests.get(audio_url).content,
+                    file_name="summary_audio.mp3",
+                    mime="audio/mp3"
+                )
             else:
                 st.error("Failed to generate audio from summary.")
     else:
