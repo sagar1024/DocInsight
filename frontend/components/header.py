@@ -12,7 +12,7 @@ def render_header():
                 font-size: 24px;
                 color: white;
                 font-weight: bold;
-                border-bottom: 3px solid #c0392b;  /* Red accent border */
+                border-bottom: 3px solid #00adb5;  /* Red accent border */
                 box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             }
         </style>
