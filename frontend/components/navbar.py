@@ -39,26 +39,13 @@ def render_navbar():
     st.sidebar.markdown("---")
 
     # Navigation Menu
-    st.sidebar.title("📌 Navigation")
+    st.sidebar.title("📌Navigation")
     menu = st.sidebar.radio(
         "Navigate to",
         ["Home", "Summarization", "Chatbot", "Voice Assistant", "Preferences"],
         index=0
     )
 
-    st.sidebar.markdown("---")
-    
-    # Feedback Button
-    if st.sidebar.button("📝 Give Feedback"):
-        st.sidebar.markdown("### 💡 We value your feedback!")
-        feedback = st.sidebar.text_area("Tell us your thoughts:")
-        if st.sidebar.button("Submit Feedback"):
-            if feedback:
-                st.success("Thank you for your feedback! 😊")
-                # Here, you can integrate a backend API to store feedback
-            else:
-                st.warning("Please enter some feedback before submitting.")
-    
     st.sidebar.markdown("---")
 
     # User Authentication Info
@@ -72,7 +59,16 @@ def render_navbar():
         st.sidebar.markdown("**🔒 Not logged in**")
         if st.sidebar.button("🔑 Login/Register"):
             st.session_state["show_auth_forms"] = True
-
-    st.sidebar.markdown("---")
+    
+    # Feedback Button
+    if st.sidebar.button("📝 Give Feedback"):
+        st.sidebar.markdown("### 💡 We value your feedback!")
+        feedback = st.sidebar.text_area("Tell us your thoughts:")
+        if st.sidebar.button("Submit Feedback"):
+            if feedback:
+                st.success("Thank you for your feedback! 😊")
+                # Here, you can integrate a backend API to store feedback
+            else:
+                st.warning("Please enter some feedback before submitting.")
 
     return menu
