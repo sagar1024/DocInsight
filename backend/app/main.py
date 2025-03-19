@@ -13,13 +13,7 @@ app = FastAPI(
     version="1.0.0"
 )
 
-#Mount the generated_audio folder to serve audio files
-#app.mount("/generated_audio", StaticFiles(directory="generated_audio"), name="audio")
-
 #Serve generated audio files
-#app.mount("/generated_audio", StaticFiles(directory="generated_audio"), name="audio")
-
-#Ensure FastAPI serves the generated audio files
 app.mount("/generated_audio", StaticFiles(directory="generated_audio"), name="audio")
 
 #Health Check Route
@@ -28,7 +22,6 @@ def health_check():
     return {"message": "Welcome to DocInsight"}
 
 #Include routers
-
 #app.include_router(summarization.router, prefix="/summarize", tags=["Summarization"])
 app.include_router(summarization.router)
 
