@@ -1,9 +1,9 @@
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from app.services.summarization import process_document
 
-router = APIRouter(prefix="/summarize")
+router = APIRouter(prefix="")
 
-@router.post("/")
+@router.post("/summarize")
 async def summarize(
     file: UploadFile = File(...),
     summary_length: int = Form(100),
