@@ -114,6 +114,7 @@ from docx import Document
 from pptx import Presentation
 from fastapi import UploadFile
 from app.utils.external_api import call_gemini_api
+
 import logging
 
 async def process_document(file: UploadFile, summary_length: int, focus_sections: str, language: str):
@@ -183,6 +184,7 @@ async def extract_text_from_docx(file):
     doc = Document(io.BytesIO(file_content))  #Convert to BytesIO before passing to Document
 
     text = "\n".join([para.text for para in doc.paragraphs])
+    
     return text
 
 async def extract_text_from_pptx(file):
@@ -227,7 +229,8 @@ async def summarize_text(text: str, summary_length: int, language: str) -> str:
 
 #HELPER functions -
 
-#This filter function is over killing
+#This filter function is over doing stuff
+#Will have to come up with a more suitable function
 def filter_focus_sections(text: str, focus_sections: str) -> str:
     """
     Filters the document text based on the provided focus sections.
