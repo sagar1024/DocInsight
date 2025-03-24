@@ -1,17 +1,17 @@
+import speech_recognition as sr
 import os
 import uuid
+from gtts import gTTS
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from pydantic import BaseModel
-import speech_recognition as sr
-from gtts import gTTS
 
 router = APIRouter()
 
-# Directory to save generated audio files
+#Directory to save generated audio files
 AUDIO_SAVE_PATH = "generated_audio"
 os.makedirs(AUDIO_SAVE_PATH, exist_ok=True)
 
-BASE_URL = "http://localhost:8000"  # Update if deployed
+BASE_URL = "http://localhost:8000"
 
 @router.post("/voice/command")
 async def process_voice_command(audio: UploadFile = File(...)):

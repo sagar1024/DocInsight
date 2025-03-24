@@ -23,8 +23,7 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
         username=user.username,
         email=user.email,
         hashed_password=hash_password(user.password),
-        is_active=True,
-        #created_at=datetime.utcnow()
+        is_active=True
     )
 
     db.add(new_user)

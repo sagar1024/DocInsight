@@ -43,7 +43,7 @@ async def summarize(
     Extracts text and images, performs OCR, and generates a summary.
     """
     try:
-        # Process the uploaded file
+        #Processing the uploaded file
         result = await process_document(
             file, summary_length, focus_sections, language
         )

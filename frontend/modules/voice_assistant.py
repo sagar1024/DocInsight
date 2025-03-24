@@ -24,7 +24,7 @@ def render():
     st.title("Voice Assistant")
     st.markdown("Use voice commands to interact with DocInsight or listen to generated summaries.")
 
-    # Narrate Document Summary
+    #Narrating Document Summary
     st.subheader("Narrate Document Summary")
     summary = st.session_state.get("document_summary", "")
 

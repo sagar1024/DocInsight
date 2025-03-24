@@ -16,12 +16,9 @@
 #     text_content = ""
 #     image_text_content = ""
 #     image_count = 0
-
 #     pdf_document = fitz.open(stream=file.read(), filetype="pdf")
-
 #     for page in pdf_document:
 #         text_content += page.get_text("text") + "\n"
-
 #         for img_index, img in enumerate(page.get_images(full=True)):
 #             xref = img[0]
 #             base_image = pdf_document.extract_image(xref)
@@ -36,14 +33,11 @@
 #     combined_text = (text_content + "\n" + image_text_content).strip()
 #     if not combined_text:
 #         return {"summary": "No content to summarize", "images": image_count}
-
 #     #Apply focus sections filtering(if focus section is given by user)
 #     if focus_sections:
 #         combined_text = filter_focus_sections(combined_text, focus_sections)
-
 #     # Generate summary
 #     summary = await summarize_text(combined_text, summary_length, language)
-
 #     return {
 #         "summary": summary,
 #         "images": image_count

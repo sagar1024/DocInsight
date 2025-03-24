@@ -10,7 +10,7 @@ def render_login_form():
 
     if submit_button:
         if email and password:
-            st.success("Login successful!")  #Replace with actual authentication logic
+            st.success("Login successful!")
             return {"email": email, "password": password}
         else:
             st.error("Please fill in all fields.")
@@ -36,7 +36,7 @@ def render_signup_form():
             st.error("Passwords do not match.")
             return None
 
-        st.success("Sign up successful!")  #Replace with actual registration logic
+        st.success("Sign up successful!")
         return {"username": username, "email": email, "password": password}
 
     return None

@@ -16,7 +16,6 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
     preferences = Column(String, nullable=True)
-    #created_at = Column(DateTime, default=datetime.utcnow)
         
     documents = relationship("Document", back_populates="user")
     
