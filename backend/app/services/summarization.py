@@ -6,24 +6,56 @@ import fitz  #PyMuPDF for PDFs
 import pytesseract
 import cv2
 from PIL import Image
+from fastapi import UploadFile
+from app.utils.external_api import call_gemini_api, analyze_image
 from docx import Document
 from pptx import Presentation
-from fastapi import UploadFile
-from app.utils.external_api import call_gemini_api
-
 import logging
+
+# async def process_document(file: UploadFile, summary_length: int, focus_sections: str, language: str):
+#     try:
+#         filename = file.filename
+#         logging.debug(f"Processing file: {filename}")
+#         file_extension = filename.split(".")[-1].lower() if filename else ""
+#         text_content = ""
+#         image_text_content = ""
+#         image_count = 0
+#         if file_extension == "pdf":
+#             text_content, image_text_content, image_count = await extract_text_from_pdf(file)
+#         elif file_extension == "docx":
+#             text_content = await extract_text_from_docx(file)
+#         elif file_extension == "pptx":
+#             text_content = await extract_text_from_pptx(file)
+#         elif file_extension == "xlsx":
+#             text_content = await extract_text_from_xlsx(file)
+#         else:
+#             return {"summary": "Unsupported file format", "images": 0}
+#         combined_text = (text_content + "\n" + image_text_content).strip()
+#         if not combined_text:
+#             return {"summary": "No content to summarize", "images": image_count}
+#         if focus_sections:
+#             combined_text = filter_focus_sections(combined_text, focus_sections)
+#         #Generate summary
+#         summary = await summarize_text(combined_text, summary_length, language)
+#         return {
+#             "summary": summary,
+#             "images": image_count
+#         }
+#     except Exception as e:
+#         logging.error(f"Error processing document: {e}", exc_info=True)
+#         return {"summary": "Error processing document", "images": 0}
 
 async def process_document(file: UploadFile, summary_length: int, focus_sections: str, language: str):
     try:
         filename = file.filename
-        logging.debug(f"Processing file: {filename}")
         file_extension = filename.split(".")[-1].lower() if filename else ""
         text_content = ""
         image_text_content = ""
         image_count = 0
+        image_analysis_results = []
 
         if file_extension == "pdf":
-            text_content, image_text_content, image_count = await extract_text_from_pdf(file)
+            text_content, image_text_content, image_count, image_analysis_results = await extract_text_from_pdf(file)
         elif file_extension == "docx":
             text_content = await extract_text_from_docx(file)
         elif file_extension == "pptx":
@@ -33,47 +65,79 @@ async def process_document(file: UploadFile, summary_length: int, focus_sections
         else:
             return {"summary": "Unsupported file format", "images": 0}
 
-        combined_text = (text_content + "\n" + image_text_content).strip()
+        # Combine extracted text, OCR text, and image analysis results
+        combined_text = (text_content + "\n" + image_text_content + "\n" + "\n".join(image_analysis_results)).strip()
+
         if not combined_text:
             return {"summary": "No content to summarize", "images": image_count}
+
         if focus_sections:
             combined_text = filter_focus_sections(combined_text, focus_sections)
 
-        #Generate summary
+        # Generate the final summary using Gemini API
         summary = await summarize_text(combined_text, summary_length, language)
         return {
             "summary": summary,
             "images": image_count
         }
     except Exception as e:
-        logging.error(f"Error processing document: {e}", exc_info=True)
-        return {"summary": "Error processing document", "images": 0}
+        return {"summary": f"Error processing document: {str(e)}", "images": 0}
     
 #Functions to extract TEXTs from files
+# async def extract_text_from_pdf(file):
+#     """Extracts text and images from a PDF file asynchronously."""
+#     text_content = ""
+#     image_text_content = ""
+#     image_count = 0
+#     file_bytes = await file.read()
+#     pdf_document = fitz.open(stream=file_bytes, filetype="pdf")
+#     for page in pdf_document:
+#         text_content += page.get_text("text") + "\n"
+#         for img_index, img in enumerate(page.get_images(full=True)):
+#             xref = img[0]
+#             base_image = pdf_document.extract_image(xref)
+#             image_bytes = base_image["image"]
+#             image = Image.open(io.BytesIO(image_bytes))
+#             processed_image = preprocess_image(image)
+#             extracted_text = pytesseract.image_to_string(processed_image)
+#             extracted_text = clean_extracted_text(extracted_text)
+#             image_text_content += extracted_text + "\n"
+#             image_count += 1
+#     return text_content.strip(), image_text_content.strip(), image_count
+
 async def extract_text_from_pdf(file):
-    """Extracts text and images from a PDF file asynchronously."""
+    """Extracts text and images from a PDF file and analyzes images using Gemini API."""
     text_content = ""
     image_text_content = ""
     image_count = 0
-    
-    #pdf_document = fitz.open(stream=file.read(), filetype="pdf")
+    image_analysis_results = []
+
     file_bytes = await file.read()
     pdf_document = fitz.open(stream=file_bytes, filetype="pdf")
 
     for page in pdf_document:
         text_content += page.get_text("text") + "\n"
+
         for img_index, img in enumerate(page.get_images(full=True)):
             xref = img[0]
             base_image = pdf_document.extract_image(xref)
             image_bytes = base_image["image"]
             image = Image.open(io.BytesIO(image_bytes))
+
+            # Preprocess image before OCR
             processed_image = preprocess_image(image)
+            
+            # Extract text from the image using OCR
             extracted_text = pytesseract.image_to_string(processed_image)
             extracted_text = clean_extracted_text(extracted_text)
             image_text_content += extracted_text + "\n"
             image_count += 1
-            
-    return text_content.strip(), image_text_content.strip(), image_count
+
+            # Send image separately to Gemini API
+            image_gemini_text = await analyze_image(image_bytes)
+            image_analysis_results.append(image_gemini_text)
+
+    return text_content.strip(), image_text_content.strip(), image_count, image_analysis_results
 
 async def extract_text_from_docx(file):
     file_content = await file.read()

@@ -1,6 +1,6 @@
 import requests
 import os
-
+import base64
 from dotenv import load_dotenv
 
 # Explicitly load .env file
@@ -46,4 +46,31 @@ async def call_gemini_api(prompt: str) -> str:
 
     except Exception as e:
         return f"Error calling Gemini API: {str(e)}"
+    
+async def analyze_image(image_bytes):
+    """
+    Sends an image to the Gemini API and extracts information from it.
+    """
+    try:
+        headers = {"Content-Type": "application/json"}
+        
+        # Convert image to Base64 format
+        encoded_image = base64.b64encode(image_bytes).decode("utf-8")
+
+        payload = {
+            "contents": [
+                {"parts": [{"inline_data": {"mime_type": "image/png", "data": encoded_image}}]}
+            ]
+        }
+
+        response = requests.post(GEMINI_API_URL, json=payload, headers=headers)
+        response.raise_for_status()
+        data = response.json()
+
+        # Extract response text
+        response_text = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "No response from Gemini API")
+        return response_text
+
+    except Exception as e:
+        return f"Error analyzing image with Gemini API: {str(e)}"
     
