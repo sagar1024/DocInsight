@@ -52,31 +52,25 @@ def render_auth_page():
     """Renders the authentication page for login or signup."""
     st.title("Welcome to DocInsight!")
     auth_option = st.radio("Choose an option:", ["Login", "Sign Up"])
-
+    
     if auth_option == "Login":
         user_data = render_login_form()
         if user_data:
             response = authenticate_user(user_data["email"], user_data["password"])
-            if "token" in response:
+            #print("Login API Response:", response)  #Debugging
+            if response.get("success"):
                 st.session_state["authenticated"] = True
-                st.session_state["user"] = response
-                st.success(f"Welcome back, {response.get('name', 'User')}!")
-                st.experimental_rerun()  #Force rerun to update the page
+                st.session_state["user"] = response["user"]
+                st.session_state["access_token"] = response["token"]
+                st.success(f"Welcome back, {response['user'].get('username', 'User')}!")
+                st.rerun()
             else:
-                show_message("Authentication failed. Please check your credentials.", "error")
-    # elif auth_option == "Sign Up":
-    #     user_data = render_signup_form()
-    #     if user_data:
-    #         response = register_user(user_data["username"], user_data["email"], user_data["password"])
-    #         #print("Register API Response:", response) #Debugging
-    #         if "success" in response:
-    #             st.success("Registration successful! Please log in.")
-    #         else:
-    #             show_message("Registration failed. Please try again.", "error")
+                show_message(response.get("error", "Authentication failed. Please check your credentials."), "error")
     elif auth_option == "Sign Up":
         user_data = render_signup_form()
         if user_data:
             response = register_user(user_data["username"], user_data["email"], user_data["password"])
+            #print("Register API Response:", response) #Debugging
             if response.get("success"):
                 st.success(response.get("message", "Registration successful! Please log in."))
             else:

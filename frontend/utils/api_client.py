@@ -28,8 +28,8 @@ def register_user(username, email, password):
             f"{BASE_URL}/auth/register",
             json={"username": username, "email": email, "password": password},
         )
-        response_data = response.json()  # Parse JSON response
-        print("Register API Response:", response_data)  # Debugging
+        response_data = response.json()  #Parse JSON response
+        print("Register API Response:", response_data)  #Debugging
         if response.status_code == 200 or response.status_code == 201:
             return {"success": True, "message": response_data.get("message", "Registration successful!")}
         return {"success": False, "error": response_data.get("detail", "Registration failed.")}
@@ -39,6 +39,21 @@ def register_user(username, email, password):
         return {"success": False, "error": str(e)}
 
 #Login user
+# def authenticate_user(email, password):
+#     """
+#     Sends login credentials to the backend authentication API.
+#     """
+#     try:
+#         response = requests.post(
+#             f"{BASE_URL}/auth/login",
+#             json={"email": email, "password": password}
+#             )
+#         response.raise_for_status()
+#         return response.json()
+#     except requests.RequestException as e:
+#         print(f"Error authenticating user: {e}")
+#         return {"error": str(e)}
+
 def authenticate_user(email, password):
     """
     Sends login credentials to the backend authentication API.
@@ -47,12 +62,23 @@ def authenticate_user(email, password):
         response = requests.post(
             f"{BASE_URL}/auth/login",
             json={"email": email, "password": password}
-            )
-        response.raise_for_status()
-        return response.json()
+        )
+
+        response_data = response.json()  #Parse the JSON response
+        print("Login API Response:", response_data)  #Debugging
+
+        if response.status_code == 200 and "access_token" in response_data:
+            return {
+                "success": True,
+                "token": response_data["access_token"],
+                "user": response_data.get("user", {}),
+            }
+        
+        return {"success": False, "error": "Invalid credentials. Please try again."}
+
     except requests.RequestException as e:
         print(f"Error authenticating user: {e}")
-        return {"error": str(e)}
+        return {"success": False, "error": str(e)}
 
 def summarize_document(document, summary_length=100, focus_sections="", language="English"):
     """
