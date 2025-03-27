@@ -3,6 +3,22 @@ import streamlit as st
 
 BASE_URL = "http://127.0.0.1:8000"  # Backend's URL (hosted remotely)
 
+# def register_user(username, email, password):
+#     """
+#     Register a new user with the backend API.
+#     """
+#     try:
+#         response = requests.post(
+#             f"{BASE_URL}/auth/register",
+#             json={"username": username, "email": email, "password": password},
+#         )
+#         if response.status_code == 201:
+#             return response.json()  # Registration successful
+#         return {"error": "Registration failed"}
+#     except requests.exceptions.RequestException as e:
+#         print(f"Register API Error: {e}")
+#         return None
+
 def register_user(username, email, password):
     """
     Register a new user with the backend API.
@@ -12,12 +28,15 @@ def register_user(username, email, password):
             f"{BASE_URL}/auth/register",
             json={"username": username, "email": email, "password": password},
         )
-        if response.status_code == 201:
-            return response.json()  # Registration successful
-        return {"error": "Registration failed"}
+        response_data = response.json()  # Parse JSON response
+        print("Register API Response:", response_data)  # Debugging
+        if response.status_code == 200 or response.status_code == 201:
+            return {"success": True, "message": response_data.get("message", "Registration successful!")}
+        return {"success": False, "error": response_data.get("detail", "Registration failed.")}
+
     except requests.exceptions.RequestException as e:
         print(f"Register API Error: {e}")
-        return None
+        return {"success": False, "error": str(e)}
 
 #Login user
 def authenticate_user(email, password):

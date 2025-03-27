@@ -8,6 +8,7 @@ from ..utils.auth import hash_password, verify_password, create_access_token, de
 from ..database import get_db
 from app.models.users import User
 from app.schemas import UserCreate, UserResponse, Token, LoginRequest
+import logging
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
@@ -29,6 +30,8 @@ def register_user(user: UserCreate, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
+    
+    logging.info(f"User registered successfully: {new_user.email}")
 
     return {
         "success": True,

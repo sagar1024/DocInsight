@@ -64,15 +64,23 @@ def render_auth_page():
                 st.experimental_rerun()  #Force rerun to update the page
             else:
                 show_message("Authentication failed. Please check your credentials.", "error")
+    # elif auth_option == "Sign Up":
+    #     user_data = render_signup_form()
+    #     if user_data:
+    #         response = register_user(user_data["username"], user_data["email"], user_data["password"])
+    #         #print("Register API Response:", response) #Debugging
+    #         if "success" in response:
+    #             st.success("Registration successful! Please log in.")
+    #         else:
+    #             show_message("Registration failed. Please try again.", "error")
     elif auth_option == "Sign Up":
         user_data = render_signup_form()
         if user_data:
             response = register_user(user_data["username"], user_data["email"], user_data["password"])
-            print("Register API Response:", response) #Debugging
-            if "success" in response:
-                st.success("Registration successful! Please log in.")
+            if response.get("success"):
+                st.success(response.get("message", "Registration successful! Please log in."))
             else:
-                show_message("Registration failed. Please try again.", "error")
+                show_message(response.get("error", "Registration failed. Please try again."), "error")
 
 #Styling for the whole app -
 def load_custom_css():
