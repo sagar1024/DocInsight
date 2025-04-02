@@ -61,6 +61,33 @@ def login_user(login_data: LoginRequest, db: Session = Depends(get_db)):
         }
     }
 
+# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+# def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+#     try:
+#         user_id = decode_access_token(token)
+#         if not user_id:
+#             raise HTTPException(
+#                 status_code=status.HTTP_401_UNAUTHORIZED,
+#                 detail="Invalid or expired token",
+#                 headers={"WWW-Authenticate": "Bearer"}
+#             )
+#     except Exception:
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail="Could not validate credentials",
+#             headers={"WWW-Authenticate": "Bearer"}
+#         )
+#     user = db.query(models.User).filter(models.User.id == user_id).first()
+#     if not user:
+#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+#     #return user
+#     return {
+#     "id": user.id,
+#     "username": user.username,
+#     "email": user.email,
+#     "is_active": user.is_active,
+#     }
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     try:
@@ -69,24 +96,23 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid or expired token",
-                headers={"WWW-Authenticate": "Bearer"}
+                headers={"WWW-Authenticate": "Bearer"},
             )
     except Exception:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials",
-            headers={"WWW-Authenticate": "Bearer"}
+            headers={"WWW-Authenticate": "Bearer"},
         )
 
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
-    #return user
     return {
-    "id": user.id,
-    "username": user.username,
-    "email": user.email,
-    "is_active": user.is_active,
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+        "is_active": user.is_active,
     }
     
