@@ -115,4 +115,15 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
         "email": user.email,
         "is_active": user.is_active,
     }
+
+#New /auth/me endpoint to verify token and return user details
+@router.get("/auth/me")
+def get_user_info(current_user: User = Depends(get_current_user)):
+    """Returns authenticated user's details"""
+    return {
+        "id": current_user.id,
+        "username": current_user.username,
+        "email": current_user.email,
+        "is_active": current_user.is_active
+    }
     
