@@ -61,28 +61,6 @@ def decode_access_token(token: str) -> Optional[int]:
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-# Get the current authenticated user
-# def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User:
-#     """
-#     Decodes and verifies the JWT token to retrieve the authenticated user.
-#     Args:
-#         token (str): The JWT token from the request header.
-#         db (Session): Database session for querying the user.
-#     Returns:
-#         User: The authenticated user object.
-#     Raises:
-#         HTTPException: If the token is invalid or the user is not found.
-#     """
-#     user_id = decode_access_token(token)
-#     user = db.query(User).filter(User.id == user_id).first()
-#     if user is None:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail="User not found",
-#             headers={"WWW-Authenticate": "Bearer"},
-#         )
-#     return user
-
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     try:
         user_id = decode_access_token(token)

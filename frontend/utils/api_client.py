@@ -3,22 +3,6 @@ import streamlit as st
 
 BASE_URL = "http://127.0.0.1:8000"  # Backend's URL (hosted remotely)
 
-# def register_user(username, email, password):
-#     """
-#     Register a new user with the backend API.
-#     """
-#     try:
-#         response = requests.post(
-#             f"{BASE_URL}/auth/register",
-#             json={"username": username, "email": email, "password": password},
-#         )
-#         if response.status_code == 201:
-#             return response.json()  # Registration successful
-#         return {"error": "Registration failed"}
-#     except requests.exceptions.RequestException as e:
-#         print(f"Register API Error: {e}")
-#         return None
-
 def register_user(username, email, password):
     """
     Register a new user with the backend API.
@@ -37,22 +21,6 @@ def register_user(username, email, password):
     except requests.exceptions.RequestException as e:
         print(f"Register API Error: {e}")
         return {"success": False, "error": str(e)}
-
-#Login user
-# def authenticate_user(email, password):
-#     """
-#     Sends login credentials to the backend authentication API.
-#     """
-#     try:
-#         response = requests.post(
-#             f"{BASE_URL}/auth/login",
-#             json={"email": email, "password": password}
-#             )
-#         response.raise_for_status()
-#         return response.json()
-#     except requests.RequestException as e:
-#         print(f"Error authenticating user: {e}")
-#         return {"error": str(e)}
 
 def authenticate_user(email, password):
     """

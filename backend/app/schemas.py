@@ -16,8 +16,8 @@ class UserResponse(BaseModel):
     id: int
     username: str
     email: str
-    is_active: Optional[bool] = None  # Mark as optional
-    created_at: Optional[str] = None  # Mark as optional
+    is_active: Optional[bool] = None
+    created_at: Optional[str] = None 
     
     model_config = ConfigDict(from_attributes=True)
 
