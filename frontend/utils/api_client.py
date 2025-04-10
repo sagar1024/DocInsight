@@ -1,5 +1,6 @@
 import requests
 import streamlit as st
+import json
 
 BASE_URL = "http://127.0.0.1:8000"  # Backend's URL (hosted remotely)
 
@@ -111,14 +112,48 @@ def send_text_to_speech(text):
         print(f"TTS API Error: {e}")
         return None
     
+# def fetch_preferences(user_id):
+#     """
+#     Fetch user preferences from the backend API.
+#     """
+#     try:
+#         response = requests.get(f"{BASE_URL}/preferences/{user_id}")
+#         if response.status_code == 200:
+#             return response.json()
+#         return None
+#     except requests.exceptions.RequestException as e:
+#         print(f"Preferences API Error: {e}")
+#         return None
+
+# def update_preferences(user_id, preferences):
+#     """
+#     Update user preferences in the backend API.
+#     """
+#     try:
+#         response = requests.put(
+#             f"{BASE_URL}/preferences/{user_id}",
+#             json=preferences,
+#         )
+#         return response.status_code == 200
+#     except requests.exceptions.RequestException as e:
+#         print(f"Update Preferences API Error: {e}")
+#         return False
+
 def fetch_preferences(user_id):
     """
     Fetch user preferences from the backend API.
+    Always returns a dictionary.
     """
     try:
         response = requests.get(f"{BASE_URL}/preferences/{user_id}")
         if response.status_code == 200:
-            return response.json()
+            prefs = response.json()
+            if isinstance(prefs, str):
+                try:
+                    prefs = json.loads(prefs)
+                except json.JSONDecodeError:
+                    prefs = {}
+            return prefs
         return None
     except requests.exceptions.RequestException as e:
         print(f"Preferences API Error: {e}")

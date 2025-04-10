@@ -32,7 +32,7 @@ app.include_router(summarization.router)
 app.include_router(chatbot.router)
 app.include_router(auth.router)
 app.include_router(voice.router)
-app.include_router(preferences.router, prefix="/preferences", tags=["Preferences"])
+app.include_router(preferences.router)
 
 # Global Exception Handler for Debugging
 @app.exception_handler(Exception)
