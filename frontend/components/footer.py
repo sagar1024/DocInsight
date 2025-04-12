@@ -28,8 +28,8 @@ def render_footer():
         </style>
         <div class="footer">
             © 2025 DocInsight. All rights reserved. | 
-            <a href="https://www.docinsight.com" target="_blank">Visit Website</a> | 
-            <a href="mailto:support@docinsight.com">Contact Support</a>
+            <a href="https://sagar-gurung-portfolio.vercel.app/" target="_blank">Visit Website</a> | 
+            <a href="https://www.linkedin.com/in/sagar-gurung-90b833209/">Contact Support</a>
         </div>
         """,
         unsafe_allow_html=True,
