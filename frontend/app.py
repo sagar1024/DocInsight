@@ -51,6 +51,7 @@ PAGES = {
 def render_auth_page():
     """Renders the authentication page for login or signup."""
     st.title("Welcome to DocInsight!")
+    
     auth_option = st.radio("Choose an option:", ["Login", "Sign Up"])
     
     if auth_option == "Login":
