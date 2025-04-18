@@ -17,7 +17,7 @@ def render_header():
             }
         </style>
         <div class="navbar">
-            📄 DocInsight — AI-Powered Document Summarizer
+            📄 DocInsight — AI Powered Document Summarizer
         </div>
         """,
         unsafe_allow_html=True

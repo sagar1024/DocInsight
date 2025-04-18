@@ -4,7 +4,7 @@ def render_navbar():
     """Render the Navbar with project name, feedback button, and navigation menu."""
 
     #Project Name
-    st.sidebar.markdown("## 📄 DocInsight")
+    st.sidebar.markdown("## DocInsight")
     st.sidebar.markdown("*AI-powered document summarization and analysis tool.*")
 
     st.sidebar.markdown("---")
@@ -30,16 +30,5 @@ def render_navbar():
         st.sidebar.markdown("**Not logged in**")
         if st.sidebar.button("Login/Register"):
             st.session_state["show_auth_forms"] = True
-    
-    # Feedback Button
-    # if st.sidebar.button("Give Feedback"):
-    #     st.sidebar.markdown("### We value your feedback!")
-    #     feedback = st.sidebar.text_area("Tell us your thoughts:")
-    #     if st.sidebar.button("Submit Feedback"):
-    #         if feedback:
-    #             st.success("Thank you for your feedback!")
-    #             #Yet to integrate a backend API to store feedback
-    #         else:
-    #             st.warning("Please enter some feedback before submitting.")
 
     return menu

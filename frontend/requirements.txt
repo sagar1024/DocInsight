@@ -1,4 +1,0 @@
-streamlit==1.26.0
-requests==2.31.0
-pillow==10.0.1 #For handling images like the logo
-streamlit-option-menu==0.3.6 #Optional: Enhanced sidebar navigation

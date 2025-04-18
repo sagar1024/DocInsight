@@ -3,7 +3,10 @@ from utils.api_client import query_chatbot
 
 def render():
     """Render the Chatbot Page."""
-    st.title("Interactive Chatbot")
+    #st.title("DocInsight Chatbot — Speak to Your Docs")
+    # st.markdown("## DocInsight Chatbot — Speak to Your Docs")
+    st.markdown("<h2 style='font-weight: bold;'>DocInsight Chatbot — Speak to Your Docs</h2>", unsafe_allow_html=True)
+    
     st.markdown(
         """
         Ask questions about your documents or general queries! Powered by the Gemini API, 

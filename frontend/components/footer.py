@@ -20,7 +20,7 @@ def render_footer():
             }
             .footer a {
                 text-decoration: none;
-                color: #4CAF50;  /* Green for links */
+                color: #FFFFFF;
             }
             .footer a:hover {
                 color: #80E27E;  /* Lighter green for hover effect */

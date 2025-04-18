@@ -22,7 +22,7 @@ class AudioProcessor(AudioProcessorBase):
 def render():
     """Render the Voice Assistant Page."""
     st.title("Voice Assistant")
-    st.markdown("Use voice commands to interact with DocInsight or listen to generated summaries.")
+    st.markdown("Listen to generated summaries or use voice commands to interact with DocInsight")
 
     #Narrating Document Summary
     st.subheader("Narrate Document Summary")
