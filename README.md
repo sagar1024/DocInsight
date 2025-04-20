@@ -24,9 +24,9 @@
 
 3. Database: PostgreSQL
 
-4. AI Models: GeminiAPI
+4. NLP & AI Models: NLTK, GeminiAPI
 
-5. OCR: OpenCV & Tesseract
+5. OCR: Tesseract OCR
 
 ---
 
