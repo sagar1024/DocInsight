@@ -1,10 +1,10 @@
-## DocInsight: Document Summarization and Interaction Tool
+# DocInsight: Document Summarization Tool
 
 **DocInsight** is an NLP-driven web application designed to save user's time in analyzing and comprehending complex documents. It offers document summarization, interactive chatbot for queries, voice commands, and customizable options to make document analysis more efficient.
 
 ---
 
-### Features -
+## Features -
 
 1. Document Summarization - Summarize documents using GeminiAPI
 
@@ -16,7 +16,7 @@
 
 ---
 
-### Tech Stack -
+## Tech Stack -
 
 1. Frontend: Streamlit for UI
 
@@ -30,7 +30,7 @@
 
 ---
 
-### Installation & Setup -
+## Installation & Setup -
 
 1. Clone the Repository
 ```bash
@@ -62,7 +62,7 @@ streamlit run app.py
 
 ---
 
-### How to USE -
+## How to USE -
 
 1. Upload your document (PDF, DOCX, PPTX, XLSX).
 
@@ -80,5 +80,5 @@ streamlit run app.py
 
 Developed by: Sagar Gurung
 
-#### Contributors:
+### Contributors:
 We welcome contributions! If you'd like to improve DocInsight, feel free to fork the repo and submit a pull request.
