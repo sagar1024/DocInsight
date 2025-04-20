@@ -14,7 +14,6 @@
 
 4. User Preferences - Adjust summary length, focusing on specific sections.
 
----
 
 ## Tech Stack -
 
@@ -28,7 +27,6 @@
 
 5. OCR: Tesseract OCR for Image text extraction
 
----
 
 ## Installation & Setup -
 
@@ -60,7 +58,6 @@ uvicorn backend.main:app --reload
 streamlit run app.py
 ```
 
----
 
 ## How to USE -
 
@@ -74,7 +71,6 @@ streamlit run app.py
 
 5. Listen to audio summaries for hands-free interaction.
 
----
 
 ## Authors & Contributors
 
