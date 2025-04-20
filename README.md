@@ -18,7 +18,7 @@
 
 ### Tech Stack -
 
-1. Frontend: Streamlit
+1. Frontend: Streamlit for UI
 
 2. Backend: FastAPI(microservice architecture)
 
@@ -26,7 +26,7 @@
 
 4. NLP & AI Models: NLTK, GeminiAPI
 
-5. OCR: Tesseract OCR
+5. OCR: Tesseract OCR for Image text extraction
 
 ---
 
