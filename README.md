@@ -20,7 +20,7 @@
 
 1. Frontend: Streamlit
 
-2. Backend: FastAPI
+2. Backend: FastAPI(microservice architecture)
 
 3. Database: PostgreSQL
 
