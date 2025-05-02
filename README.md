@@ -76,5 +76,3 @@ streamlit run app.py
 
 Developed by: Sagar Gurung
 
-### Contributors:
-We welcome contributions! If you'd like to improve DocInsight, feel free to fork the repo and submit a pull request.
