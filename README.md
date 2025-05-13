@@ -74,5 +74,4 @@ streamlit run app.py
 
 ## Authors & Contributors
 
-Developed by: Sagar Gurung
-
+Developed by: Sagar Gurung under Dept of CS, Christ University, Bangalore.
