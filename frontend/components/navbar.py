@@ -4,7 +4,7 @@ def render_navbar():
     """Render the Navbar with project name, feedback button, and navigation menu."""
 
     #Project Name
-    st.sidebar.markdown("## DocInsight")
+    st.sidebar.markdown("## 📄DocInsight")
     st.sidebar.markdown("*AI-powered document summarization and analysis tool.*")
 
     st.sidebar.markdown("---")
