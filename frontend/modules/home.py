@@ -35,6 +35,7 @@ def render():
     st.markdown("---")
     
     st.markdown("### Unlock Insights, Instantly!")
+    
     st.markdown(
         """
         ```
@@ -47,4 +48,4 @@ def render():
     st.markdown("---")
 
     st.success("NOTE - Use the **Summarization** page to upload a document and generate summaries.")
-    
+
