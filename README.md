@@ -36,9 +36,7 @@ git clone https://github.com/yourusername/docinsight.git
 cd docinsight
 ```
 
-2. Install Dependencies
-
-Make sure you have Python 3.8+ installed. Then, run:
+2. Install Dependencies - Make sure you have Python 3.8+ installed. Then, run:
 
 ```bash
 pip install -r requirements.txt
@@ -74,4 +72,4 @@ streamlit run app.py
 
 ## Authors & Contributors
 
-Developed by Sagar Gurung under the supervision of Dept of CS, Christ University, Bangalore.
+Developed by Sagar Gurung under the supervision of Department of Computer Science, Christ University, Bangalore.
