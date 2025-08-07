@@ -4,7 +4,7 @@
 
 ---
 
-## Features -
+## Features
 
 1. Document Summarization - Summarize documents using GeminiAPI
 
@@ -15,7 +15,7 @@
 4. User Preferences - Adjust summary length, focusing on specific sections.
 
 
-## Tech Stack -
+## Tech Stack
 
 1. Frontend: Streamlit for UI
 
@@ -28,7 +28,7 @@
 5. OCR: Tesseract OCR for Image text extraction
 
 
-## Installation & Setup -
+## Installation & Setup
 
 1. Clone the Repository
 ```bash
@@ -36,30 +36,30 @@ git clone https://github.com/yourusername/docinsight.git
 cd docinsight
 ```
 
-2. Install Dependencies
-
-Make sure you have Python 3.8+ installed. Then, run:
+2. Install Dependencies - Make sure you have Python 3.8+ installed. Then, run:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Create GEMINI_API_KEY from google AI studio. Create a .env file in the backend, and paste your GEMINI_API_KEY in it.
+3. Create GEMINI_API_KEY from google AI studio. Create a .env file in the backend, and save it there.
 
 4. Run the Backend (FastAPI)
 
 ```bash
-uvicorn backend.main:app --reload
+cd backend
+uvicorn app.main:app --reload
 ```
 
-5. Run the Frontend (Streamlit)
+5. Run the Frontend (Streamlit) on a new terminal
 
 ```bash
+cd frontend
 streamlit run app.py
 ```
 
 
-## How to USE -
+## How to USE
 
 1. Upload your document (PDF, DOCX, PPTX, XLSX).
 
@@ -74,4 +74,4 @@ streamlit run app.py
 
 ## Authors & Contributors
 
-Developed by: Sagar Gurung (under Dept of CS, Christ University, Bangalore).
+Developed by Sagar Gurung under the supervision of Department of Computer Science, Christ University, Bangalore.
