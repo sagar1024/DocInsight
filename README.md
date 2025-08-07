@@ -42,7 +42,7 @@ cd docinsight
 pip install -r requirements.txt
 ```
 
-3. Create GEMINI_API_KEY from google AI studio. Create a .env file in the backend, and paste your GEMINI_API_KEY in it.
+3. Create GEMINI_API_KEY from google AI studio. Create a .env file in the backend, and save it there.
 
 4. Run the Backend (FastAPI)
 
