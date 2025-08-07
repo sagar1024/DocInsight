@@ -48,7 +48,7 @@ pip install -r requirements.txt
 
 ```bash
 cd backend
-uvicorn backend.main:app --reload
+uvicorn app.main:app --reload
 ```
 
 5. Run the Frontend (Streamlit)
