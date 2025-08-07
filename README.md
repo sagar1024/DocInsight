@@ -4,7 +4,7 @@
 
 ---
 
-## Features -
+## Features
 
 1. Document Summarization - Summarize documents using GeminiAPI
 
@@ -15,7 +15,7 @@
 4. User Preferences - Adjust summary length, focusing on specific sections.
 
 
-## Tech Stack -
+## Tech Stack
 
 1. Frontend: Streamlit for UI
 
@@ -28,7 +28,7 @@
 5. OCR: Tesseract OCR for Image text extraction
 
 
-## Installation & Setup -
+## Installation & Setup
 
 1. Clone the Repository
 ```bash
@@ -59,7 +59,7 @@ streamlit run app.py
 ```
 
 
-## How to USE -
+## How to USE
 
 1. Upload your document (PDF, DOCX, PPTX, XLSX).
 
