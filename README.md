@@ -51,7 +51,7 @@ cd backend
 uvicorn app.main:app --reload
 ```
 
-5. Run the Frontend (Streamlit)
+5. Run the Frontend (Streamlit) on a new terminal
 
 ```bash
 cd frontend
